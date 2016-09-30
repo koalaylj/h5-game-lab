@@ -1,0 +1,27 @@
+{
+  "name": "h5-game-lab",
+  "version": "1.0.0",
+  "description": "html5 game develop research.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "html5",
+    "game",
+    "javascript",
+    "ai",
+    "phaser",
+    "pixi",
+    "dragonbone",
+    "creature",
+    "spine"
+  ],
+  "author": "yulijun",
+  "license": "MIT",
+  "dependencies": {
+    "phaser": "^2.6.2",
+    "phaser-spine": "^2.2.0",
+    "pixi.js": "^4.0.3"
+  }
+}

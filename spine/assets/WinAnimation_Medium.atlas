@@ -1,0 +1,202 @@
+
+WinAnimation_Medium.png
+size: 923,524
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Images/BG
+  rotate: true
+  xy: 2, 330
+  size: 192, 178
+  orig: 192, 178
+  offset: 0, 0
+  index: -1
+Images/Fire/Fire_00000
+  rotate: true
+  xy: 512, 54
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+Images/Fire/Fire_00001
+  rotate: true
+  xy: 739, 94
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+Images/Fire/Fire_00002
+  rotate: true
+  xy: 739, 12
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+Images/Fire/Fire_00003
+  rotate: false
+  xy: 781, 134
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+Images/Fire/Fire_00004
+  rotate: false
+  xy: 781, 92
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+Images/Headlight
+  rotate: true
+  xy: 863, 109
+  size: 65, 58
+  orig: 65, 58
+  offset: 0, 0
+  index: -1
+Images/Rays/Rays_00000
+  rotate: true
+  xy: 2, 136
+  size: 192, 178
+  orig: 192, 178
+  offset: 0, 0
+  index: -1
+Images/Rays/Rays_00001
+  rotate: true
+  xy: 182, 330
+  size: 192, 178
+  orig: 192, 178
+  offset: 0, 0
+  index: -1
+Images/Rays/Rays_00002
+  rotate: true
+  xy: 182, 136
+  size: 192, 178
+  orig: 192, 178
+  offset: 0, 0
+  index: -1
+Images/Rays/Rays_00003
+  rotate: true
+  xy: 362, 330
+  size: 192, 178
+  orig: 192, 178
+  offset: 0, 0
+  index: -1
+Images/Rays/Rays_00004
+  rotate: true
+  xy: 362, 136
+  size: 192, 178
+  orig: 192, 178
+  offset: 0, 0
+  index: -1
+Images/SYM3
+  rotate: false
+  xy: 565, 350
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+Images/SYM5
+  rotate: false
+  xy: 739, 350
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+Images/SYM6
+  rotate: false
+  xy: 542, 176
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+Images/Star
+  rotate: true
+  xy: 890, 315
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+Images/Sym7/Body
+  rotate: false
+  xy: 565, 2
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+Images/Sym7/Leg_BackLeft
+  rotate: true
+  xy: 852, 10
+  size: 38, 34
+  orig: 38, 34
+  offset: 0, 0
+  index: -1
+Images/Sym7/Leg_BackRight
+  rotate: true
+  xy: 781, 50
+  size: 40, 73
+  orig: 40, 73
+  offset: 0, 0
+  index: -1
+Images/Sym7/Leg_FrontLeft
+  rotate: true
+  xy: 512, 10
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: -1
+Images/Sym7/Leg_FrontRight
+  rotate: true
+  xy: 781, 9
+  size: 39, 69
+  orig: 39, 69
+  offset: 0, 0
+  index: -1
+Images/Sym7/Tail
+  rotate: true
+  xy: 863, 67
+  size: 40, 54
+  orig: 40, 54
+  offset: 0, 0
+  index: -1
+Images/fuselage
+  rotate: false
+  xy: 716, 176
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+Images/propeller/Propeller_00000
+  rotate: false
+  xy: 2, 14
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+Images/propeller/Propeller_00001
+  rotate: false
+  xy: 104, 14
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+Images/propeller/Propeller_00002
+  rotate: false
+  xy: 206, 14
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+Images/propeller/Propeller_00003
+  rotate: false
+  xy: 308, 14
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+Images/propeller/Propeller_00004
+  rotate: false
+  xy: 410, 14
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
