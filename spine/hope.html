@@ -5,7 +5,7 @@
     <title>Phaser Spine Example</title>
 
     <script src="../node_modules/phaser/build/phaser.js"></script>
-    <script src="../node_modules/phaser-spine/build/phaser-spine.js"></script>
+    <script src="phaser-spine.js"></script>
 
     <style>
         body {
@@ -17,7 +17,7 @@
 
 <body>
     <script>
-        var sym3,sym4, sym5,sym6,sym7,game;
+        var symbols,sym4, sym5,sym6,sym7,game;
 
         game = new Phaser.Game(800, 400, Phaser.AUTO, '', {
             init: init,
@@ -42,23 +42,24 @@
 
         function create() {
             //create the spine object
-            sym3 = game.add.spine(100, 100, "wild");
+            symbols = game.add.spine(100, 100, "wild");
             sym4 = game.add.spine(300, 100, "wild");
             sym5 = game.add.spine(500, 100, "wild");
             sym6 = game.add.spine(300, 300, "wild");
             sym7 = game.add.spine(500, 300, "wild");
 
-            sym3.setAnimationByName(0, shit[count], false);
+            symbols.setAnimationByName(0, shit[count], true);
             sym4.setAnimationByName(0, 'SYM4', true);
             sym5.setAnimationByName(0, 'SYM5', true);
             sym6.setAnimationByName(0, 'SYM6', true);
             sym7.setAnimationByName(0, 'SYM7', true);
 
             game.input.onDown.add(function() {
-              // sym3.setAnimationByName(0, 'disabled', false);
+              // symbols.setAnimationByName(0, 'disabled', false);
               count++;
               count = count % shit.length;
-              sym3.setAnimationByName(0, shit[count], false);
+              symbols.addAnimationByName(0, shit[count], true);
+              // symbols.setAnimationByName(0, shit[count], true);
               console.log("play", shit[count]);
             });
         }

@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <title>Phaser Spine Example</title>
 
     <script src="../node_modules/phaser/build/phaser.js"></script>
-    <script src="../build/phaser-spine.js"></script>
+    <script src="phaser-spine.js"></script>
 
     <style>
         body {
@@ -13,46 +14,57 @@
         }
     </style>
 </head>
+
 <body>
-<script>
+    <script>
+        var symbols,sym4, sym5,sym6,sym7,game;
 
-    var buddy, game;
-
-    game = new Phaser.Game(800, 600, Phaser.AUTO, '', {init: init, preload: preload, create: create});
-
-    function init() {
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    }
-
-    function preload() {
-        game.plugins.add(Fabrique.Plugins.Spine);
-        game.stage.disableVisibilityChange = true;
-
-        game.load.spine('buddy', "assets/buddy_skeleton.json");
-        game.load.image('button1', "assets/btn_01.png");
-        game.load.image('button2', "assets/btn_02.png");
-    }
-
-    function create() {
-
-        //create the spine object
-        buddy = game.add.spine(400, 300, "buddy");
-
-        // play animation
-        buddy.setAnimationByName(0, "idle", true);
-        var newSkin = buddy.createCombinedSkin('outfit02', 'vest', 'mask');
-
-        var button1 = this.game.add.button(20, 20, 'button1', function () {
-            buddy.setSkinByName('outfit01');
-            buddy.setToSetupPose();
+        game = new Phaser.Game(800, 400, Phaser.AUTO, '', {
+            init: init,
+            preload: preload,
+            create: create
         });
 
-        var button1 = this.game.add.button(20, 130, 'button2', function () {
-            buddy.setSkinByName('outfit02');
-            buddy.setToSetupPose();
-        });
-    }
-</script>
+        function init() {
+          this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        }
+
+        function preload() {
+            game.plugins.add(Fabrique.Plugins.Spine);
+            game.stage.disableVisibilityChange = true;
+
+            game.load.spine('wild', "assets/WinAnimation_Medium.json");
+        }
+
+        var shit = ["SYM3", "SYM4", "SYM5", "SYM6", "SYM7"];
+
+        var count = 0;
+
+        function create() {
+            //create the spine object
+            symbols = game.add.spine(100, 100, "wild");
+            sym4 = game.add.spine(300, 100, "wild");
+            sym5 = game.add.spine(500, 100, "wild");
+            sym6 = game.add.spine(300, 300, "wild");
+            sym7 = game.add.spine(500, 300, "wild");
+
+            symbols.setAnimationByName(0, shit[count], true);
+            sym4.setAnimationByName(0, 'SYM4', true);
+            sym5.setAnimationByName(0, 'SYM5', true);
+            sym6.setAnimationByName(0, 'SYM6', true);
+            sym7.setAnimationByName(0, 'SYM7', true);
+
+            game.input.onDown.add(function() {
+              count++;
+              count = count % shit.length;
+              symbols.addAnimationByName(0, shit[count], true);
+              symbols.setToSetupPose();
+              // symbols.setAnimationByName(0, shit[count], true);
+              console.log("play", shit[count]);
+            });
+        }
+    </script>
 
 </body>
+
 </html>
