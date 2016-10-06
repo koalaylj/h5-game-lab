@@ -20,6 +20,8 @@
   "author": "yulijun",
   "license": "MIT",
   "dependencies": {
+    "requirejs": "^2.2.0",
+    "requirejs-plugins": "^1.0.2",
     "phaser": "^2.6.2",
     "phaser-spine": "^2.2.0",
     "pixi.js": "^4.0.3"
