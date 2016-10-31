@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Phaser Spine Example</title>
+    <script src="../node_modules/phaser/build/phaser.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var bmpText;
+
+        game = new Phaser.Game(800, 400, Phaser.AUTO, '', {
+            init: init,
+            preload: preload,
+            create: create,
+            update:update
+        });
+
+        var count = 1;
+
+        function init() {
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        }
+
+        function preload() {
+            game.load.bitmapFont('hehe', 'assets/hehe_0.png', 'assets/hehe.fnt');
+        }
+
+        var count = 0;
+
+        function create() {
+           bmpText = game.add.bitmapText(200, 100, 'hehe', '123454321');
+        }
+
+        function update(){
+          // count += 1;
+          // if (count ==6) {
+          //   count = 1;
+          // }
+
+        }
+    </script>
+
+</body>
+
+</html>

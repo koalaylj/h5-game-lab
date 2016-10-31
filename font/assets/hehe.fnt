@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<font>
+  <info face="Arial" size="32" bold="0" italic="0" charset="" unicode="1" stretchH="100" smooth="1" aa="1" padding="0,0,0,0" spacing="1,1" outline="0"/>
+  <common lineHeight="32" base="26" scaleW="256" scaleH="256" pages="1" packed="1" alphaChnl="3" redChnl="0" greenChnl="0" blueChnl="0"/>
+  <pages>
+    <page id="0" file="hehe_0.png" />
+  </pages>
+  <chars count="5">
+    <char id="49" x="119" y="0" width="25" height="50" xoffset="0" yoffset="0" xadvance="25" page="0" chnl="15"  letter="1"/>
+    <char id="50" x="41" y="0" width="39" height="50" xoffset="0" yoffset="0" xadvance="39" page="0" chnl="15"  letter="2"/>
+    <char id="51" x="145" y="0" width="36" height="49" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"  letter="3"/>
+    <char id="52" x="0" y="0" width="40" height="50" xoffset="0" yoffset="0" xadvance="40" page="0" chnl="15"  letter="4"/>
+    <char id="53" x="81" y="0" width="37" height="50" xoffset="0" yoffset="0" xadvance="37" page="0" chnl="15"  letter="5"/>
+  </chars>
+</font>

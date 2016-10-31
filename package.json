@@ -20,10 +20,12 @@
   "author": "yulijun",
   "license": "MIT",
   "dependencies": {
-    "requirejs": "^2.2.0",
-    "requirejs-plugins": "^1.0.2",
+    "gulp": "^3.9.1",
     "phaser": "^2.6.2",
     "phaser-spine": "^2.2.0",
-    "pixi.js": "^4.0.3"
+    "pixi.js": "^4.0.3",
+    "requirejs": "^2.2.0",
+    "requirejs-plugins": "^1.0.2",
+    "spritesmith-texturepacker": "^1.0.0"
   }
 }

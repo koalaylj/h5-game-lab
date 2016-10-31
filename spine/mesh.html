@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Phaser Spine Example</title>
+
+    <script src="lib/phaser.js"></script>
+    <script src="lib/phaser-spine.js"></script>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var punch;
+
+        game = new Phaser.Game(1280, 720, Phaser.AUTO, '', {
+            init: init,
+            preload: preload,
+            create: create
+        });
+
+        function init() {
+          this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        }
+
+        function preload() {
+            game.plugins.add(Fabrique.Plugins.Spine);
+            game.stage.disableVisibilityChange = true;
+
+            game.load.spine('punch', "assets/punchBagGame.json");
+        }
+
+        function create() {
+            //create the spine object
+            punch = game.add.spine(640, 360, "punch");
+
+            punch.setAnimationByName(0, 'idle', true);
+            punch.setToSetupPose();
+
+            game.input.onDown.add(function() {
+              punch.addAnimationByName(0, 'hitBag', false);
+              punch.setToSetupPose();
+            });
+        }
+    </script>
+
+</body>
+
+</html>
