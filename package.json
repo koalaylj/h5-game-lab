@@ -26,6 +26,7 @@
     "pixi.js": "^4.0.3",
     "requirejs": "^2.2.0",
     "requirejs-plugins": "^1.0.2",
-    "spritesmith-texturepacker": "^1.0.0"
+    "spritesmith-texturepacker": "^1.0.0",
+    "treejs": "^0.6.2"
   }
 }
