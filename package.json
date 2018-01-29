@@ -23,6 +23,7 @@
     "gulp": "^3.9.1",
     "phaser": "^2.6.2",
     "phaser-spine": "^2.2.0",
+    "phaser3-project-template": "^1.0.1",
     "pixi.js": "^4.0.3",
     "requirejs": "^2.2.0",
     "requirejs-plugins": "^1.0.2",
