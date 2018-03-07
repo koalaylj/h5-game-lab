@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Phaser Spine Example</title>
+
+    <script src="../node_modules/phaser/build/phaser.js"></script>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'phaser-example', {
+            preload: preload,
+            create: create,
+            render: render
+        });
+
+        var rope;
+        var debugKey;
+        var shouldDebug = false;
+
+        function preload() {
+
+            game.load.image('snake', 'assets/betlineImage.png');
+
+        }
+
+        function create() {
+
+            var count = 0;
+            var length = 918 / 20;
+            var points = [];
+
+            for (var i = 0; i < 20; i++) {
+                points.push(new Phaser.Point(i * length, 0));
+            }
+            rope = game.add.rope(32, this.game.world.centerY, 'snake', null, points);
+            rope.scale.set(0.8);
+
+            for (var i = 0; i < points.length; i++) {
+                points[i].y = Math.sin(i * 0.5 + count) * 100;
+            }
+
+            rope.updateAnimation = function() {
+                count += 0.1;
+
+                // for (var i = 0; i < this.points.length; i++) {
+                //     this.points[i].y = Math.sin(i * 0.5 + count) * 20;
+                // }
+            };
+
+            debugKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
+            debugKey.onDown.add(toggleDebug);
+
+        }
+
+        function render() {
+
+            if (shouldDebug) {
+                game.debug.ropeSegments(rope);
+            }
+
+            game.debug.text('(D) to show debug', 20, 32);
+
+        }
+
+        function toggleDebug() {
+
+            shouldDebug = !shouldDebug;
+
+        }
+    </script>
+
+</body>
+
+</html>
