@@ -1,0 +1,640 @@
+{
+  "meta": {
+    "version": "1.0",
+    "name": "happy-caveman",
+    "width": 2000,
+    "height": 1000
+  },
+  "main": "assets/games/happy-caveman/start.js",
+  "i18n": {
+    "languages": [
+      "en",
+      "zh-cn"
+    ],
+    "directory": "assets/games/happy-caveman/i18n/"
+  },
+  "assets": [{
+      "type": "atlas",
+      "key": "main",
+      "texture": "assets/games/happy-caveman/atlas/main.png",
+      "atlas": "assets/games/happy-caveman/atlas/main.json"
+    },
+    {
+      "type": "atlas",
+      "key": "i18n",
+      "i18n": {
+        "en": {
+          "texture": "assets/games/happy-caveman/atlas/en.png",
+          "atlas": "assets/games/happy-caveman/atlas/en.json"
+        },
+        "zh-cn": {
+          "texture": "assets/games/happy-caveman/atlas/zh-cn.png",
+          "atlas": "assets/games/happy-caveman/atlas/zh-cn.json"
+        }
+      }
+    },
+    {
+      "type": "atlas",
+      "key": "line",
+      "texture": "assets/games/happy-caveman/atlas/line.png",
+      "atlas": "assets/games/happy-caveman/atlas/line.json"
+    },
+    {
+      "type": "dragonbones",
+      "atlas": {
+        "key": "man_json",
+        "path": "assets/games/happy-caveman/atlas/man_tex.json"
+      },
+      "texture": {
+        "key": "man_tex",
+        "path": "assets/games/happy-caveman/atlas/man_tex.png"
+      },
+      "ske": {
+        "key": "man_ske",
+        "path": "assets/games/happy-caveman/atlas/man_ske.json"
+      }
+    },
+    {
+      "type": "webfont",
+      "key": "zcool",
+      "name": "zcool",
+      "path": "assets/font/zcool.css"
+    },
+    {
+      "type": "image",
+      "key": "bg",
+      "path": "assets/games/happy-caveman/atlas/background.png"
+    },
+    {
+      "type": "audio",
+      "key": "ambienceGeneral",
+      "path": "assets/games/happy-caveman/ogg/ambienceGeneral.ogg"
+    },
+    {
+      "type": "audio",
+      "key": "spinButtonClick",
+      "path": "assets/games/happy-caveman/ogg/spinButtonClick.ogg"
+    },
+    {
+      "type": "audio",
+      "key": "buttonClick",
+      "path": "assets/games/happy-caveman/ogg/buttonClick.ogg"
+    },
+    {
+      "type": "audio",
+      "key": "bonusSplash",
+      "path": "assets/games/happy-caveman/ogg/bonusSplash.ogg"
+    },
+    {
+      "type": "audio",
+      "key": "continueButtonPress",
+      "path": "assets/games/happy-caveman/ogg/continueButtonPress.ogg"
+    },
+    {
+      "type": "audio",
+      "key": "bonusgameExit",
+      "path": "assets/games/happy-caveman/ogg/bonusgameExit.ogg"
+    },
+    {
+      "type": "audio",
+      "key": "field_of_miracles",
+      "path": "assets/games/happy-caveman/ogg/field_of_miracles.ogg"
+    },
+    {
+      "type": "audio",
+      "key": "smallWin",
+      "path": "assets/games/happy-caveman/ogg/smallWin.ogg"
+    }
+  ],
+  "styles": {
+    "normal": {
+      "font": "Arial",
+      "boundsAlignH": "right",
+      "boundsAlignV": "middle",
+      "fill": "rgb(0, 0, 0)",
+      "fontSize": 15
+    },
+    "bold": {
+      "font": "Arial",
+      "boundsAlignH": "right",
+      "boundsAlignV": "middle",
+      "fill": "rgb(0,0,0)",
+      "fontSize": 18
+    },
+    "wager": {
+      "font": "Arial",
+      "boundsAlignH": "right",
+      "boundsAlignV": "middle",
+      "fill": "rgb(66, 255, 0)",
+      "fontSize": 20
+    }
+  },
+  "reels": [{
+      "pos": [-490, -290],
+      "maxY": 630,
+      "times": 30,
+      "speed": 60,
+      "prepare": [
+        91, -100
+      ],
+      "symbols": [
+        [
+          91,
+          90
+        ],
+        [
+          91,
+          275
+        ],
+        [
+          91,
+          460
+        ]
+      ],
+      "mask": {
+        "x": -490,
+        "y": -290,
+        "w": 180,
+        "h": 550
+      }
+    },
+    {
+      "pos": [-294, -290],
+      "maxY": 630,
+      "times": 50,
+      "speed": 60,
+      "prepare": [
+        91, -90
+      ],
+      "symbols": [
+        [
+          91,
+          90
+        ],
+        [
+          91,
+          275
+        ],
+        [
+          91,
+          460
+        ]
+      ],
+      "mask": {
+        "x": -294,
+        "y": -290,
+        "w": 180,
+        "h": 550
+      }
+    },
+    {
+      "pos": [-94, -290],
+      "maxY": 630,
+      "times": 70,
+      "speed": 60,
+      "prepare": [
+        91, -90
+      ],
+      "symbols": [
+        [
+          91,
+          90
+        ],
+        [
+          91,
+          275
+        ],
+        [
+          91,
+          460
+        ]
+      ],
+      "mask": {
+        "x": -94,
+        "y": -290,
+        "w": 180,
+        "h": 550
+      }
+    },
+    {
+      "pos": [
+        106, -290
+      ],
+      "maxY": 630,
+      "times": 90,
+      "speed": 60,
+      "prepare": [
+        91, -90
+      ],
+      "symbols": [
+        [
+          91,
+          90
+        ],
+        [
+          91,
+          275
+        ],
+        [
+          91,
+          460
+        ]
+      ],
+      "mask": {
+        "x": 106,
+        "y": -290,
+        "w": 180,
+        "h": 550
+      }
+    },
+    {
+      "pos": [
+        306, -290
+      ],
+      "maxY": 630,
+      "times": 120,
+      "speed": 60,
+      "prepare": [
+        91, -90
+      ],
+      "symbols": [
+        [
+          91,
+          90
+        ],
+        [
+          91,
+          275
+        ],
+        [
+          91,
+          460
+        ]
+      ],
+      "mask": {
+        "x": 306,
+        "y": -290,
+        "w": 180,
+        "h": 550
+      }
+    }
+  ],
+  "symbols": [{
+      "key": "main",
+      "frame": "sym_wild",
+      "blur": "sym_wild_blur",
+      "id": 8
+    },
+    {
+      "key": "main",
+      "frame": "sym_scatter",
+      "blur": "sym_scatter_blur",
+      "id": 9
+    },
+    {
+      "key": "main",
+      "frame": "sym_bonus",
+      "blur": "sym_bonus_blur",
+      "id": 10
+    },
+    {
+      "key": "main",
+      "frame": "sym_pet",
+      "blur": "sym_pet_blur",
+      "id": 5
+    },
+    {
+      "key": "main",
+      "frame": "sym_ugly",
+      "blur": "sym_ugly_blur",
+      "id": 6
+    },
+    {
+      "key": "main",
+      "frame": "sym_hot",
+      "blur": "sym_hot_blur",
+      "id": 7
+    },
+    {
+      "key": "main",
+      "frame": "sym_korean",
+      "blur": "sym_korean_blur",
+      "id": 4
+    },
+    {
+      "key": "main",
+      "frame": "sym_fire",
+      "blur": "sym_fire_blur",
+      "id": 3
+    },
+    {
+      "key": "main",
+      "frame": "sym_egg",
+      "blur": "sym_egg_blur",
+      "id": 2
+    },
+    {
+      "key": "main",
+      "frame": "sym_statue",
+      "blur": "sym_statue_blur",
+      "id": 1
+    },
+    {
+      "key": "main",
+      "frame": "sym_bone",
+      "blur": "sym_bone_blur",
+      "id": 0
+    }
+  ],
+  "custom": {
+    "paytable": {
+      "btnPre": {
+        "x": 100,
+        "y": 300,
+        "atlas": "paytable",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "over": "arrow_previev_over",
+        "out": "arrow_previev_up",
+        "down": "arrow_previev_down",
+        "up": "arrow_previev_up",
+        "disable": "arrow_previev_disable"
+      },
+      "btnNext": {
+        "x": 1180,
+        "y": 300,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "atlas": "paytable",
+        "over": "arrow_previev_over",
+        "out": "arrow_previev_up",
+        "down": "arrow_previev_down",
+        "up": "arrow_previev_up",
+        "disable": "arrow_previev_disable"
+      },
+      "btnClose": {
+        "x": 1215,
+        "y": 55,
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "atlas": "paytable",
+        "over": "close_btn_over",
+        "out": "close_btn_up",
+        "down": "close_btn_down",
+        "up": "close_btn_up",
+        "disable": "close_btn_disable"
+      }
+    },
+    "reelFrame": {
+      "x": 640,
+      "y": 360,
+      "key": "reelFrame",
+      "anchor": [
+        0.5,
+        0.5
+      ]
+    },
+    "reelGlass": {
+      "x": 640,
+      "y": 360,
+      "key": "reelGlass",
+      "anchor": [
+        0.5,
+        0.5
+      ]
+    },
+    "txt_bg": {
+      "x": 481,
+      "y": 500,
+      "key": "txt_bg",
+      "anchor": [
+        0.5,
+        0
+      ]
+    },
+    "btnInfo": {
+      "x": 60,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "paytableButtonOver",
+      "out": "paytableButtonUp",
+      "down": "paytableButtonDown",
+      "up": "paytableButtonUp",
+      "disable": "paytableButtonDisabled"
+    },
+    "btnAuto": {
+      "x": 530,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "autoPlayButtonOver",
+      "out": "autoPlayButtonUp",
+      "down": "autoPlayButtonDown",
+      "up": "autoPlayButtonUp",
+      "disable": "autoPlayButtonDisabled"
+    },
+    "btnStopAuto": {
+      "x": 192,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "maxBetButtonOver",
+      "out": "maxBetButtonUp",
+      "down": "maxBetButtonDown",
+      "up": "maxBetButtonUp",
+      "disable": "maxBetButtonDisabled"
+    },
+    "btnMax": {
+      "x": 750,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "maxBetButtonOver",
+      "out": "maxBetButtonUp",
+      "down": "maxBetButtonDown",
+      "up": "maxBetButtonUp",
+      "disable": "maxBetButtonDisabled"
+    },
+    "btnSpin": {
+      "x": 640,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "spinButtonOver",
+      "out": "spinButtonIdle",
+      "down": "spinButtonDown",
+      "up": "spinButtonIdle",
+      "disable": "spinButtonDisabled"
+    },
+    "btnLevelAdd": {
+      "x": 439,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "selectorPlusOver",
+      "out": "selectorPlusUp",
+      "down": "selectorPlusDown",
+      "up": "selectorPlusUp",
+      "disable": "selectorPlusDisabled"
+    },
+    "btnLevelMinus": {
+      "x": 340,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "selectorMinusOver",
+      "out": "selectorMinusUp",
+      "down": "selectorMinusDown",
+      "up": "selectorMinusUp",
+      "disable": "selectorMinusDisabled"
+    },
+    "btnBetAdd": {
+      "x": 939,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "selectorPlusOver",
+      "out": "selectorPlusUp",
+      "down": "selectorPlusDown",
+      "up": "selectorPlusUp",
+      "disable": "selectorPlusDisabled"
+    },
+    "btnBetMinus": {
+      "x": 840,
+      "y": 660,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "selectorMinusOver",
+      "out": "selectorMinusUp",
+      "down": "selectorMinusDown",
+      "up": "selectorMinusUp",
+      "disable": "selectorMinusDisabled"
+    },
+    "btnBetArr": {
+      "x": 70,
+      "y": 519,
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "over": "betarr_on",
+      "out": "betarr_out",
+      "down": "betarr_down",
+      "up": "betarr_out",
+      "disable": "betarr_disable",
+      "action": "selectBetArr"
+    },
+    "btnContinue": {
+      "x": 350,
+      "y": 450,
+      "anchor": [
+        0,
+        0
+      ],
+      "over": "continue_on",
+      "out": "continue_out",
+      "down": "continue_down",
+      "up": "continue_out",
+      "disable": "continue_disable"
+    },
+    "btnFreeClose": {
+      "x": 350,
+      "y": 400,
+      "anchor": [
+        0,
+        0
+      ],
+      "over": "continue_on",
+      "out": "continue_out",
+      "down": "continue_down",
+      "up": "continue_out",
+      "disable": "continue_disable"
+    },
+    "payLine": [
+      [1, 4, 7, 10, 13],
+      [0, 3, 6, 9, 12],
+      [2, 5, 8, 11, 14],
+      [0, 4, 8, 10, 12],
+      [2, 4, 6, 10, 14],
+
+      [0, 3, 7, 9, 12],
+      [2, 5, 7, 11, 14],
+      [1, 5, 8, 11, 13],
+      [1, 3, 6, 9, 13],
+      [1, 3, 7, 9, 13],
+
+      [1, 5, 7, 11, 13],
+      [0, 4, 6, 10, 12],
+      [2, 4, 8, 10, 14],
+      [1, 4, 6, 10, 13],
+      [1, 4, 8, 10, 13],
+
+      [0, 4, 7, 10, 12],
+      [2, 4, 7, 10, 14],
+      [0, 5, 6, 11, 12],
+      [2, 3, 8, 9, 14],
+      [0, 5, 8, 11, 12],
+
+      [2, 3, 6, 9, 14],
+      [0, 3, 8, 9, 12],
+      [2, 5, 6, 11, 14],
+      [0, 5, 7, 11, 12],
+      [2, 3, 7, 9, 14],
+
+      [1, 5, 6, 11, 13],
+      [1, 3, 8, 9, 13],
+      [1, 5, 7, 9, 14],
+      [1, 3, 7, 11, 13],
+      [0, 3, 7, 11, 14],
+
+      [0, 4, 7, 10, 14],
+      [2, 5, 7, 9, 12],
+      [2, 4, 7, 10, 12],
+      [0, 3, 6, 10, 14],
+      [2, 5, 8, 10, 12],
+
+      [0, 4, 8, 11, 14],
+      [2, 4, 6, 9, 12],
+      [0, 4, 6, 10, 14],
+      [2, 4, 8, 10, 12],
+      [0, 4, 8, 10, 14],
+
+      [2, 4, 6, 10, 12],
+      [1, 3, 7, 10, 12],
+      [1, 5, 7, 10, 14],
+      [1, 3, 6, 10, 12],
+      [1, 5, 8, 10, 12],
+
+      [1, 3, 6, 10, 14],
+      [1, 5, 8, 10, 14],
+      [0, 4, 7, 10, 13],
+      [2, 4, 7, 10, 13],
+      [1, 3, 6, 9, 12]
+    ]
+  }
+}

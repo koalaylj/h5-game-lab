@@ -1,0 +1,9 @@
+body, p, div {
+    margin: 0;
+    padding: 0;
+}
+canvas {
+    margin: 0 0 0 0;
+    padding: 0;
+    background-color: black;
+}

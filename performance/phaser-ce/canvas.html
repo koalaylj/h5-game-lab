@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>happy-caveman</title>
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        window.DEV = true; //used in js/main.js
+    </script>
+    <script type="text/javascript" src="../node_modules/promise-polyfill/promise.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../node_modules/whatwg-fetch/fetch.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../node_modules/phaser-ce/build/phaser.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./lib/dragonBones.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../node_modules/requirejs/require.js" data-main="core/main" charset="utf-8"></script>
+    <script type="text/javascript">
+        requirejs.config({
+            // urlArgs: "bust=" + (new Date()).getTime(),
+            // urlArgs: 'bust=v1.3',
+            baseUrl: 'core',
+            paths: {
+                async: '../../node_modules/async/dist/async',
+                FontFaceObserver: '../../node_modules/fontfaceobserver/fontfaceobserver.standalone',
+                lodash: '../../node_modules/lodash/lodash.min'
+            },
+            shim: {
+                FontFaceObserver: {
+                    exports: 'FontFaceObserver'
+                }
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+    <div id="game">
+    </div>
+</body>
+
+</html>
