@@ -1,86 +1,77 @@
-var config = {
-    width: 1600,
-    height: 900,
-    renderer: Phaser.CANVAS, //AUTO,CANVAS,WEBGL,WEBGL_MULTI,HEADLESS
-    antialias: true,
-    multiTexture: false,
-    state: {
-        inti: init,
-        preload: preload,
-        create: create,
-        update: update,
-        render: render
+function main() {
+
+    this.init = function () {
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    }
+
+    this.preload = function () {
+
+        //allow inspect fps.
+        game.time.advancedTiming = true;
+
+        game.load.atlas('main', '../assets/main.png', '../assets/main.json');
+        game.load.image('background', '../assets/background.png');
+        game.load.atlas('i18n', '../assets/en.png', '../assets/en.json');
+    }
+
+    this.create = function () {
+
+        //layers
+        var layers = {
+            back: game.add.group(),
+            reel: game.add.group(),
+            effect: game.add.group(),
+            menu: game.add.group()
+        };
+
+        //background image
+        var background = game.add.image(game.width / 2, game.height / 2, 'background');
+        background.anchor.setTo(0.5, 0.5);
+        layers.back.addChild(background);
+
+        //initialize
+        controller.create();
+        controller.setLayer(layers.menu);
+
+        reel.create();
+        reel.setLayer(layers.reel);
+
+
+        //show
+        controller.show();
+        reel.show();
+
+        var symbols = getSymbolsByIds([
+            0, 1, 2, 3, 4,
+            5, 6, 7, 8, 9,
+            10, 10, 10, 10, 10,
+            11, 11, 11, 11, 11
+        ]);
+        reel.setSymbols(symbols);
+        reel.start();
+    }
+
+    this.render = function () {
+        game.debug.text('fps:' + game.time.fps || '--', 20, 40, "#00ff00");
+    }
+
+    this.update = function () {
+        reel.update();
+    }
+
+    function getSymbolsByIds(symbolIds) {
+        var symbols = [];
+        _.each(symbolIds, function (symbolId) {
+            var symbol = _.find(cache.symbols, function (item) {
+                return item.id === symbolId
+            });
+            symbols.push(symbol);
+        });
+
+        return symbols;
     }
 }
 
-window.game = new Phaser.Game(config);
-
-function init() {
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-}
-
-function preload() {
-    game.load.atlas('main', '../assets/main.png', '../assets/main.json');
-    game.load.image('background', '../assets/background.png');
-    game.load.atlas('i18n', '../assets/en.png', '../assets/en.json');
-}
-
-function create() {
-
-    //layers
-    var layers = {
-        back: game.add.group(),
-        reel: game.add.group(),
-        effect: game.add.group(),
-        menu: game.add.group()
-    };
-
-    //background image
-    var background = game.add.image(game.width / 2, game.height / 2, 'background');
-    background.anchor.setTo(0.5, 0.5);
-    layers.back.addChild(background);
-
-    //initialize
-    controller.create();
-    controller.setLayer(layers.menu);
-
-    reel.create();
-    reel.setLayer(layers.reel);
-
-
-    //show
-    controller.show();
-    reel.show();
-
-    var symbols = getSymbolsByIds([
-        0, 1, 2, 3, 4,
-        5, 6, 7, 8, 9,
-        10, 10, 10, 10, 10,
-        11, 11, 11, 11, 11
-    ]);
-    reel.setSymbols(symbols);
-    reel.start();
-}
-
-function render() {
-
-}
-
-function update() {
-    reel.update();
-}
-
-function getSymbolsByIds(symbolIds) {
-    var symbols = [];
-    _.each(symbolIds, function (symbolId) {
-        var symbol = _.find(cache.symbols, function (item) {
-            return item.id === symbolId
-        });
-        symbols.push(symbol);
-    });
-
-    return symbols;
-}
 
 var reel = (function () {
     var _root;
@@ -632,3 +623,6 @@ var cache = {
         }
     ],
 }
+
+game.state.add('main', main);
+game.state.start('main');
