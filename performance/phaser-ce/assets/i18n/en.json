@@ -1,6 +1,0 @@
-{
-  "err.404": "",
-
-  "ui.not.enough.money": "you dont have enough money",
-  "ui.spin.win": "congratulations you win {{ money }}！"
-}
