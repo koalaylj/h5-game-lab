@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<style>
+	 #cc {
+		background:rgb(2, 2, 2);
+		/* background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1518160825&di=e070b89906453c035a3c8a6f53aee400&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0142135541fe180000019ae9b8cf86.jpg%401280w_1l_2o_100sh.png) */
+	} 
+	</style>
+</head>
+
+<body>
+	<div id='cc'></div>
+	<script type="text/javascript" src="../lib/phaser-ce.js"></script>
+	<script type="text/javascript">
+
+		var rope;
+		var debugKey;
+		var shouldDebug = false;
+
+		var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'cc', {
+			preload: preload,
+			create: create,
+			render: render
+		},true);
+
+		function render() {
+
+			if (shouldDebug) {
+				game.debug.ropeSegments(rope);
+			}
+
+			game.debug.text('(D) to show debug', 20, 32);
+
+		}
+
+		function toggleDebug() {
+			shouldDebug = !shouldDebug;
+		}
+
+		function preload() {
+			game.load.image('snake', 'assets/snake.png');
+		}
+
+		function create() {
+			var count = 0;
+			var length = 918 / 20;
+			var points = [];
+
+			for (var i = 0; i < 20; i++) {
+				points.push(new Phaser.Point(i * length, 0));
+			}
+			rope = game.add.rope(32, this.game.world.centerY, 'snake', null, points);
+			rope.scale.set(0.8);
+
+			rope.updateAnimation = function () {
+				count += 0.1;
+
+				for (var i = 0; i < this.points.length; i++) {
+					this.points[i].y = Math.sin(i * 0.5 + count) * 20;
+				}
+			};
+
+			debugKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
+			debugKey.onDown.add(toggleDebug);
+		}
+
+
+	</script>
+</body>
+
+</html>

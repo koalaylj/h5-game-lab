@@ -1,8 +1,5 @@
-var renderer = new PIXI.autoDetectRenderer(800, 600);
-document.body.appendChild(renderer.view);
-
-// create the root of the scene graph
-var stage = new PIXI.Container();
+var app = new PIXI.Application();
+document.body.appendChild(app.view);
 
 var bol = false;
 
@@ -20,27 +17,28 @@ function init() {
     var textures = [texture];
     var D8 = PIXI.GroupD8;
     for (var rotate = 1; rotate < 16; rotate++) {
-        var h = D8.isSwapWidthHeight(rotate) ? texture.frame.width : texture.frame.height;
-        var w = D8.isSwapWidthHeight(rotate) ? texture.frame.height : texture.frame.width;
+        var h = D8.isVertical(rotate) ? texture.frame.width : texture.frame.height;
+        var w = D8.isVertical(rotate) ? texture.frame.height : texture.frame.width;
 
       	var frame = texture.frame;
         var crop = new PIXI.Rectangle(texture.frame.x, texture.frame.y, w, h);
         var trim = crop;
+        var rotatedTexture;
         if (rotate%2==0) {
-        	var rotatedTexture = new PIXI.Texture(texture.baseTexture, frame, crop, trim, rotate);
+        	rotatedTexture = new PIXI.Texture(texture.baseTexture, frame, crop, trim, rotate);
         } else {
             //HACK to avoid exception
 			//PIXI doesnt like diamond-shaped UVs, because they are different in canvas and webgl
-          	var rotatedTexture = new PIXI.Texture(texture.baseTexture, frame, crop, trim, rotate-1);
+          	rotatedTexture = new PIXI.Texture(texture.baseTexture, frame, crop, trim, rotate-1);
           	rotatedTexture.rotate++;
         }
         textures.push(rotatedTexture);
     }
 
-    var offsetX = renderer.width / 16 | 0;
-    var offsetY = renderer.height / 8 | 0;
-    var gridW = renderer.width / 4 | 0;
-    var gridH = renderer.height / 5 | 0;
+    var offsetX = app.screen.width / 16 | 0;
+    var offsetY = app.screen.height / 8 | 0;
+    var gridW = app.screen.width / 4 | 0;
+    var gridH = app.screen.height / 5 | 0;
 
     //normal rotations and mirrors
     for (var i = 0; i < 16; i++) {
@@ -49,21 +47,12 @@ function init() {
         dude.scale.x = 0.5;
         dude.scale.y = 0.5;
         // show it in grid
-        dude.position.x = offsetX + gridW * (i % 4);
-        dude.position.y = offsetY + gridH * (i / 4 | 0);
-        stage.addChild(dude);
+        dude.x = offsetX + gridW * (i % 4);
+        dude.y = offsetY + gridH * (i / 4 | 0);
+        app.stage.addChild(dude);
         var text = new PIXI.Text("rotate = "+dude.texture.rotate, { fontFamily:'Courier New', fontSize:'12px', fill: 'white', align: 'left' });
-        text.position.x = dude.position.x;
-        text.position.y = dude.position.y - 20;
-        stage.addChild(text);
+        text.x = dude.x;
+        text.y = dude.y - 20;
+        app.stage.addChild(text);
     }
-}
-
-animate();
-
-function animate() {
-    requestAnimationFrame(animate);
-
-    // render the stage
-    renderer.render(stage);
 }
