@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>phaser3 Canvas</title>
+    <style>
+        div {
+            background-color: white;
+        }
+
+        canvas {
+            margin-left: auto;
+            margin-right: auto;
+            background-color: black;
+            outline: #000000 solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game">
+    </div>
+</body>
+
+<script type="text/javascript" src="../lib/phaser3-v3.2.0.js" charset="utf-8"></script>
+<script type="text/javascript" src="../lib/lodash.js" charset="utf-8"></script>
+<script>
+    var config = {
+        width: 1600,
+        height: 900,
+        type: Phaser.CANVAS, //AUTO,CANVAS,WEBGL
+        parent: 'game',
+        antialias: true,
+        multiTexture: false
+    }
+
+    window.game = new Phaser.Game(config);
+</script>
+<script type="text/javascript" src="./main.js" charset="utf-8"></script>
+
+
+</html>
