@@ -18,6 +18,9 @@
   * WebGL模式在移动设备上性能极差，卡顿严重，无法在生产环境下使用。
   * Canvas模式在移动设备上性能优良，可流畅播放动画。
   * Phaser-CE + Dragonbones canvas下流畅，webgl卡顿(应该和dragonbones关系不大)。
+  * Phaser-CE + Spine(无mesh动画) canvas下流畅， webgl卡顿。
+  * Phaser-CE + Spine(有mesh动画) canvas和 webgl都卡顿。
+  * phaser-CE canvas模式下，multiTexture 要设置为false。否则影响帧率(20FPS左右)。
 * Phaser3 
   * WebGL和Canvas模式在移动设备上性能很好，可流畅播放动画。
 * PIXI
@@ -40,6 +43,8 @@
   - 移动设备上canvas和webgl模式都非常流畅。
   - dragonbones无mesh动画在canvas和webgl下都可以流畅播放。
   - dragonbones有mesh动画在webgl下可以流畅播放，canvas下卡顿严重。
+  - spine无mesh动画在canvas和webgl下都可流畅播放。
+  - spine有mesh动画在webgl下流畅播放，canvas下卡顿。
 
 ## Iphone 6s
 
@@ -53,7 +58,7 @@
 * 浏览器
   * Safari
 
-    | Framework | Version  |   Canvas FPS   | WebGL FPS |
+    | Framework | SDK Version |   Canvas FPS   | WebGL FPS |
     |---------- | -------- | ------- |---------- |
     | phaser-ce | 2.6.14   |  54~60  | 21~23(去mask 32) |
     | phaser3   | 3.0.10   | 流畅(无mask) | 流畅(无mask) |
@@ -61,15 +66,14 @@
     | phaser-ce + dragonbones | dragonbones 5.6.2 | 55~60 | 20~22 |
     | phaser-ce + spine | spine  4.0.0-alpha1 | 60 | 20~21 |
     | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 | 6~7 | 20~21 |
-    | phaser3 + spine | spine  4.0.0-alpha1 |  |  |
-    | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  |  |
     | pixi + dragonbones | dragonbones 5.6.2 | 58~60 | 58~60 |
     | pixi + dragonbones(mesh) | dragonbones 5.6.2 | 4~5 | 58~60 |
-    | pixi + spine | spine  4.0.0-alpha1 |  |  |
+    | pixi + spine | spine  4.0.0-alpha1 | 58~60 | 58~60 |
+    | pixi + spine(mesh) | spine  4.0.0-alpha1 | 7~8 | 58~60 |
 
   * Chrome
 
-  	| Framework | Version  |   Canvas FPS   | WebGL FPS |
+  	| Framework | SDK Version |   Canvas FPS   | WebGL FPS |
   	|:--------- | -------- | ------- |---------- |
   	| phaser-ce | 2.6.14   | 58~60   | 21~23(去mask 32~34) |
   	| phaser3   | 3.0.10   | 流畅(无mask) | 流畅(无mask) |
@@ -77,12 +81,10 @@
   | phaser-ce + dragonbones | dragonbones 5.6.2 | 58~60 | 21~23 |
   | phaser-ce + spine | spine  4.0.0-alpha1 | 60 | 20~21 |
   | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 | 7 | 20~21 |
-  | phaser3 + spine | spine  4.0.0-alpha1 |  |  |
-  | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  |  |
   | pixi + dragonbones | dragonbones 5.6.2 | 58~60 | 58~60 |
   | pixi + dragonbones(mesh) | dragonbones 5.6.2 | 5 | 58~60 |
-  | pixi + spine | spine  4.0.0-alpha1 |  |  |
-  | pixi + spine(mesh) | spine  4.0.0-alpha1 |  |  |
+  | pixi + spine | spine  4.0.0-alpha1 | 58~60 | 58~60 |
+  | pixi + spine(mesh) | spine  4.0.0-alpha1 | 8 | 55~60 |
 
 ## Ipad 4 LTE
 * System
@@ -95,20 +97,18 @@
 * 浏览器
   * safari
 
-    | Framework | Version  |   Canvas FPS   | WebGL FPS |
-    |:--------- | :------: | :------ | ------- |
-    | phaser-ce | 2.6.14   |  57~60(multiTexture:true 33~37)  | 6~7 |
+    | Framework | SDK Version |   Canvas FPS   | WebGL FPS |
+    |:--------- | :------- | :------ | ------- |
+    | phaser-ce | 2.6.14   |  57~60  | 6~7 |
     | phaser3   | 3.0.10   | 流畅(无mask) |流畅(无mask)|
     | pixi      | 3.5.5    | 37~49 |58~60|
-  | phaser-ce + dragonbones | dragonbones 5.6.2 |  ||
-  | phaser-ce + spine | spine  4.0.0-alpha1 |  ||
-  | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 |  ||
-  | phaser3 + spine | spine  4.0.0-alpha1 |  ||
-  | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  ||
-  | pixi + dragonbones | dragonbones 5.6.2 |  ||
-  | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  ||
-  | pixi + spine | spine  4.0.0-alpha1 |  ||
-  | pixi + spine(mesh) | spine  4.0.0-alpha1 |  ||
+    | phaser-ce + dragonbones | dragonbones 5.6.2 |  ||
+    | phaser-ce + spine | spine  4.0.0-alpha1 |  ||
+    | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 |  ||
+    | pixi + dragonbones | dragonbones 5.6.2 |  ||
+    | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  ||
+    | pixi + spine | spine  4.0.0-alpha1 |  ||
+    | pixi + spine(mesh) | spine  4.0.0-alpha1 |  ||
 
 
 ## Samsung S6 
@@ -118,7 +118,7 @@
 * 浏览器
   * chrome	
 
-  | Framework | Version |  Cavnas FPS  | WebGL FPS |
+  | Framework | SDK Version |  Cavnas FPS  | WebGL FPS |
   |:--------- | -------- | ----- |---------- |
   | phaser-ce | 2.6.14   | 59~60 | 25~32 |
   | phaser3   | 3.0.10   | 流畅(无mask) | 流畅(无mask) |
@@ -126,8 +126,6 @@
   | phaser-ce + dragonbones | dragonbones 5.6.2 |  |  |
   | phaser-ce + spine | spine  4.0.0-alpha1 |  |  |
   | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 |  |  |
-  | phaser3 + spine | spine  4.0.0-alpha1 |  |  |
-  | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  |  |
   | pixi + dragonbones | dragonbones 5.6.2 |  |  |
   | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  |  |
   | pixi + spine | spine  4.0.0-alpha1 |  |  |

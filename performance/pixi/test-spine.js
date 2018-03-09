@@ -1,57 +1,84 @@
-function main() {
-  this.init = function() {
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-  };
+var count = 0;
 
-  this.preload = function() {
-    // var isWebGL = game.config.renderer == 2;
+//layers
+var layer = {
+  back: new PIXI.Container(),
+  reel: new PIXI.Container(),
+  effect: new PIXI.Container(),
+  menu: new PIXI.Container(),
+  front: new PIXI.Container()
+};
 
-    console.log("useMesh", useMesh);
+var FPS = new PIXI.Text("");
+FPS.x = 30;
+FPS.y = 90;
+layer.menu.addChild(FPS);
 
-    game.plugins.add(PhaserSpine.SpinePlugin, {
-      // debugRendering:true,
-      triangleRendering: useMesh
+for (let key in layer) {
+  app.stage.addChild(layer[key]);
+}
+
+var counter = 0;
+
+var bg = PIXI.Sprite.fromImage("../assets/background.png");
+bg.anchor.set(0.5);
+bg.x = app.screen.width / 2;
+bg.y = app.screen.height / 2;
+layer.back.addChild(bg);
+
+// Stop application wait for load to finish
+app.stop();
+
+function getSymbolsByIds(symbolIds) {
+  var symbols = [];
+  _.each(symbolIds, function(symbolId) {
+    var symbol = _.find(cache.symbols, function(item) {
+      return item.id === symbolId;
     });
+    symbols.push(symbol);
+  });
 
-    //allow inspect fps.
-    game.time.advancedTiming = true;
+  return symbols;
+}
 
-    game.load.atlas("main", "../assets/main.png", "../assets/main.json");
-    game.load.image("background", "../assets/background.png");
-    game.load.atlas("i18n", "../assets/en.png", "../assets/en.json");
+const loader = new PIXI.loaders.Loader();
+loader
+  .add("main", "../assets/main.json")
+  .add("i18n", "../assets/en.json")
+  .add("pig", "../assets/spine/pig.json")
+  .use((res, next) => {
+    //Convert JOSN(Array) to JSON(Hash)
+    if (res.name === "i18n" || res.name === "main") {
+      var map = {};
+      var frames = {};
 
-    game.load.spine("pig", "../assets/spine/pig.json");
-  };
+      res.data.frames.forEach((e, i) => {
+        map[i] = e.filename;
+        frames[e.filename] = e;
+      });
+      res.data.frames = frames;
 
-  this.create = function() {
-    //layers
-    var layers = {
-      back: game.add.group(),
-      reel: game.add.group(),
-      effect: game.add.group(),
-      menu: game.add.group(),
-      front: game.add.group()
-    };
+      var textures = {};
+      for (var i in res.textures) {
+        textures[map[i]] = res.textures[i];
+      }
+      res.textures = textures;
+    }
 
-    //background image
-    var background = game.add.image(
-      game.width / 2,
-      game.height / 2,
-      "background"
-    );
-    background.anchor.setTo(0.5, 0.5);
-    layers.back.addChild(background);
-
+    next();
+  })
+  .load((loader, res) => {
     //controller
+    var controller = new Controller(res);
     controller.create();
-    controller.setLayer(layers.menu);
+    controller.setLayer(layer.menu);
     controller.show();
 
     //reel
-    reel.create();
-    reel.setLayer(layers.reel);
-    reel.show();
-
+    var reelManager = new ReelManager(res);
+    reelManager.create();
+    reelManager.setLayer(layer.reel);
+    reelManager.show();
     var symbols = getSymbolsByIds([
       0,
       1,
@@ -74,38 +101,36 @@ function main() {
       11,
       11
     ]);
-    reel.setSymbols(symbols);
-    reel.start();
+    reelManager.setSymbols(symbols);
+    reelManager.start();
 
-    //spine
-    var pig = game.add.spine(500, 400, "pig");
-    pig.setAnimationByName(0, "pig", true);
-    pig.setToSetupPose();
-    layers.front.addChild(pig);
-  };
-
-  this.render = function() {
-    game.debug.text("fps:" + game.time.fps, 20, 40, "#00ff00");
-  };
-
-  this.update = function() {
-    reel.update();
-  };
-
-  function getSymbolsByIds(symbolIds) {
-    var symbols = [];
-    _.each(symbolIds, function(symbolId) {
-      var symbol = _.find(cache.symbols, function(item) {
-        return item.id === symbolId;
-      });
-      symbols.push(symbol);
+    app.ticker.add(function(delta) {
+      reelManager.update();
+      if (counter++ % 10 === 0) {
+        FPS.text = "FPS:" + app.ticker.FPS;
+      }
+      if (counter > 10000000000) {
+        counter = 0;
+      }
     });
 
-    return symbols;
-  }
-}
+    //spine
+    var pig = new PIXI.spine.Spine(res.pig.spineData);
+    pig.x = 700;
+    pig.y = 800;
+    layer.front.addChild(pig);
+    if (pig.state.hasAnimation('pig')) {
+        // run forever, little boy!
+        pig.state.setAnimation(0, 'pig', true);
+        // dont run too fast
+       // pig.state.timeScale = 0.1;
+    }
+    
 
-var reel = (function() {
+    app.start();
+  });
+
+var ReelManager = function(res) {
   var _root;
 
   var _reelGroup;
@@ -115,11 +140,9 @@ var reel = (function() {
    */
   var _scrollCounter = 0;
 
-  var finishEvent = new Phaser.Signal();
-
   /************** 老虎机的一个轴 ***************/
   var Reel = function(index, conf) {
-    Phaser.Group.call(this, game);
+    PIXI.Container.call(this);
 
     this.x = conf.pos[0];
     this.y = conf.pos[1];
@@ -133,17 +156,17 @@ var reel = (function() {
     this.initMask();
   };
 
-  Reel.prototype = Object.create(Phaser.Group.prototype);
+  Reel.prototype = Object.create(PIXI.Container.prototype);
   Reel.prototype.constructor = Reel;
 
   /**
    * 初始化遮罩（图标显示区域）
    */
   Reel.prototype.initMask = function() {
-    var mask = game.add.graphics(
-      this.conf.mask.x + _reelGroup.position.x,
-      this.conf.mask.y + _reelGroup.position.y
-    );
+    var mask = new PIXI.Graphics();
+    app.stage.addChild(mask);
+    mask.x = this.conf.mask.x + _reelGroup.x;
+    mask.y = this.conf.mask.y + _reelGroup.y;
     mask.beginFill(0x000000);
     mask.drawRect(0, 0, this.conf.mask.w, this.conf.mask.h);
     if (this.mask !== null) {
@@ -163,7 +186,7 @@ var reel = (function() {
         this.addSymbol(prepare[0], prepare[1], symbol.key, symbol.blur);
       }
 
-      for (var i = 0; i < this.length; i++) {
+      for (var i = 0; i < this.children.length; i++) {
         this.children[i].y += this.conf.speed;
       }
     }
@@ -186,11 +209,11 @@ var reel = (function() {
 
   //往轴内添加一个图标
   Reel.prototype.addSymbol = function(x, y, atlas, frame) {
-    var symbol = game.add.sprite(x, y, atlas, frame);
-    symbol.anchor.setTo(0.5, 0.5);
+    var symbol = new PIXI.Sprite(res[atlas].textures[frame]);
+    symbol.x = x;
+    symbol.y = y;
+    symbol.anchor.set(0.5);
     this.addChild(symbol);
-    // symbol.inputEnabled = true;
-    // symbol.input.enableDrag(true);
     return symbol;
   };
 
@@ -201,7 +224,7 @@ var reel = (function() {
 
   //设置本轴所有图标
   Reel.prototype.setSymbols = function(symbols) {
-    this.removeAll(true);
+    this.removeChildren();
     for (var j = this.conf.symbols.length - 1; j >= 0; j--) {
       var symbolConf = this.conf.symbols[j];
       var symbol = symbols[j];
@@ -222,28 +245,6 @@ var reel = (function() {
     for (var i = 0; i < _reelGroup.children.length; i++) {
       var reel = _reelGroup.getChildAt(i);
       reel.scroll();
-
-      var canStop = false; // _scrollCounter >= reel.conf.times;
-
-      if (!reel.stoped && canStop) {
-        var symbolIds = stand(cache.get("spin").symbols);
-        var symbols = getSymbolsByIds(symbolIds);
-
-        reel.stop(symbols.slice(i * 3, (i + 1) * 3));
-
-        var allStoped = _.every(
-          _reelGroup.children,
-          function(e) {
-            return e.stoped;
-          },
-          this
-        );
-
-        if (allStoped) {
-          _started = false;
-          finishEvent.dispatch();
-        }
-      }
     }
   }
 
@@ -262,48 +263,34 @@ var reel = (function() {
     return clientSymbols;
   }
 
-  function getSymbolsByIds(symbolIds) {
-    var symbols = [];
-    _.each(symbolIds, function(symbolId) {
-      var symbol = _.find(cache.symbols, function(item) {
-        return item.id === symbolId;
-      });
-      symbols.push(symbol);
-    });
-
-    return symbols;
-  }
-
   /**
    * 初始化滚轮
    */
   function create() {
-    _root = game.add.group();
+    _root = new PIXI.Container();
     _root.visible = false;
 
-    var bg = game.add.image(game.width / 2, game.height / 2, "main", "reelBg");
-    bg.anchor.setTo(0.5);
+    var bg = new PIXI.Sprite(res.main.textures["reelBg"]);
+    bg.x = app.screen.width / 2;
+    bg.y = app.screen.height / 2;
+    bg.anchor.set(0.5);
     _root.addChild(bg);
 
-    _reelGroup = game.add.group(_root);
-    _reelGroup.x = game.width / 2;
-    _reelGroup.y = game.height / 2;
-
+    _reelGroup = new PIXI.Container();
+    _reelGroup.x = app.screen.width / 2;
+    _reelGroup.y = app.screen.height / 2;
     _root.addChild(_reelGroup);
 
-    var logo = game.add.image(
-      game.width / 2,
-      game.height / 2 - 370,
-      "i18n",
-      "reel_logo"
-    );
-    logo.anchor.setTo(0.5);
+    var logo = new PIXI.Sprite(res.i18n.textures["reel_logo"]);
+    logo.x = app.screen.width / 2;
+    logo.y = app.screen.height / 2 - 370;
+    logo.anchor.set(0.5);
     _root.addChild(logo);
 
     for (var i = 0; i < cache.reels.length; i++) {
       var reelConf = cache.reels[i];
       var reel = new Reel(i, reelConf);
-      _reelGroup.add(reel);
+      _reelGroup.addChild(reel);
     }
   }
 
@@ -316,10 +303,6 @@ var reel = (function() {
 
     show: function() {
       _root.visible = true;
-    },
-
-    hide: function() {
-      _root.visible = false;
     },
 
     update: update,
@@ -333,29 +316,23 @@ var reel = (function() {
     start: function() {
       _scrollCounter = 0;
 
-      for (var i = 0; i < _reelGroup.length; i++) {
+      for (var i = 0; i < _reelGroup.children.length; i++) {
         _reelGroup.children[i].start();
       }
       _started = true;
     },
 
-    /**
-     * 停止Reel
-     */
     stop: function() {
       var symbolIds = stand(cache.get("spin").symbols);
       var symbols = getSymbolsByIds(symbolIds);
       _.each(_reelGroup.children, function(reel, i) {
         reel.stop(symbols.slice(i * 3, (i + 1) * 3));
       });
-    },
-
-    finishEvent: finishEvent
+    }
   };
-})();
+};
 
-//control panel for slot machine.
-var controller = (function() {
+var Controller = function(res) {
   var _root;
   var _btnGroup;
 
@@ -369,141 +346,78 @@ var controller = (function() {
   var _btnPaytable;
 
   function create() {
-    _root = game.add.group();
+    _root = new PIXI.Container();
     _root.visible = false;
-    _root.position.y = -20;
+    _root.x = app.screen.width / 2;
+    _root.y = app.screen.height - 100;
 
-    var bg = game.add.image(
-      game.width / 2,
-      game.height - 100,
-      "i18n",
-      "ui_toolbar"
-    );
-    bg.anchor.setTo(0.5);
+    var bg = new PIXI.Sprite(res.i18n.textures["ui_toolbar"]);
+    bg.anchor.set(0.5);
     _root.addChild(bg);
 
-    _btnGroup = game.add.group(_root);
-    _btnGroup.position.x = game.width / 2;
-    _btnGroup.position.y = game.height - 100;
+    _btnGroup = new PIXI.Container();
+    _root.addChild(_btnGroup);
 
     // 减少投注
-    _btnBetSub = game.add.button(
-      -660,
-      -40,
-      "main",
-      function() {},
-      this,
-      "btn_minus_pass",
-      "btn_minus_default",
-      "btn_minus_push",
-      "btn_minus_default",
-      _btnGroup
-    );
-    _btnBetSub.anchor.setTo(0.5, 0.5);
+    _btnBetSub = new PIXI.Sprite(res.main.textures["btn_minus_pass"]);
+    _btnBetSub.buttonMode = true;
+    _btnBetSub.x = -660;
+    _btnBetSub.y = -40;
+    _btnBetSub.anchor.set(0.5);
+    _btnGroup.addChild(_btnBetSub);
 
     //增加投注
-    _btnBetAdd = game.add.button(
-      -480,
-      -40,
-      "main",
-      function() {},
-      this,
-      "btn_plus_pass",
-      "btn_plus_default",
-      "btn_plus_push",
-      "btn_plus_default",
-      _btnGroup
-    );
-    _btnBetAdd.anchor.setTo(0.5, 0.5);
+    _btnBetAdd = new PIXI.Sprite(res.main.textures["btn_plus_pass"]);
+    _btnBetAdd.buttonMode = true;
+    _btnBetAdd.x = -480;
+    _btnBetAdd.y = -40;
+    _btnBetAdd.anchor.set(0.5);
+    _btnGroup.addChild(_btnBetAdd);
 
     // 线-
-    _btnLineSub = game.add.button(
-      -660,
-      35,
-      "main",
-      function() {},
-      this,
-      "btn_minus_pass",
-      "btn_minus_default",
-      "btn_minus_push",
-      "btn_minus_default",
-      _btnGroup
-    );
-    _btnLineSub.anchor.setTo(0.5, 0.5);
+    _btnLineSub = new PIXI.Sprite(res.main.textures["btn_minus_pass"]);
+    _btnLineSub.buttonMode = true;
+    _btnLineSub.x = -660;
+    _btnLineSub.y = 35;
+    _btnLineSub.anchor.set(0.5);
+    _btnGroup.addChild(_btnLineSub);
 
     //线+
-    _btnLineAdd = game.add.button(
-      -480,
-      35,
-      "main",
-      function() {},
-      this,
-      "btn_plus_pass",
-      "btn_plus_default",
-      "btn_plus_push",
-      "btn_plus_default",
-      _btnGroup
-    );
-    _btnLineAdd.anchor.setTo(0.5, 0.5);
+    _btnLineAdd = new PIXI.Sprite(res.main.textures["btn_plus_pass"]);
+    _btnLineAdd.buttonMode = true;
+    _btnLineAdd.x = -480;
+    _btnLineAdd.y = 35;
+    _btnLineAdd.anchor.set(0.5);
+    _btnGroup.addChild(_btnLineAdd);
 
     //
-    _btnMaxBet = game.add.button(
-      -127,
-      0,
-      "i18n",
-      function() {},
-      this,
-      "btn_maxbet_pass",
-      "btn_maxbet_default",
-      "btn_maxbet_push",
-      "btn_maxbet_default",
-      _btnGroup
-    );
-    _btnMaxBet.anchor.setTo(0.5, 0.5);
+    _btnMaxBet = new PIXI.Sprite(res.i18n.textures["btn_maxbet_pass"]);
+    _btnMaxBet.buttonMode = true;
+    _btnMaxBet.x = -127;
+    _btnMaxBet.y = 0;
+    _btnMaxBet.anchor.set(0.5);
+    _btnGroup.addChild(_btnMaxBet);
 
-    _btnSpin = game.add.button(
-      15,
-      -8,
-      "main",
-      function() {
-        spin();
-      },
-      this,
-      "btn_spin_pass",
-      "btn_spin_default",
-      "btn_spin_push",
-      "btn_spin_default",
-      _btnGroup
-    );
-    _btnSpin.anchor.setTo(0.5, 0.5);
+    _btnSpin = new PIXI.Sprite(res.main.textures["btn_spin_pass"]);
+    _btnSpin.buttonMode = true;
+    _btnSpin.x = 15;
+    _btnSpin.y = -8;
+    _btnSpin.anchor.set(0.5);
+    _btnGroup.addChild(_btnSpin);
 
-    _btnAutoPlay = game.add.button(
-      156,
-      1,
-      "i18n",
-      function() {},
-      this,
-      "btn_autoplay_pass",
-      "btn_autoplay_default",
-      "btn_autoplay_push",
-      "btn_autoplay_default",
-      _btnGroup
-    );
-    _btnAutoPlay.anchor.setTo(0.5, 0.5);
+    _btnAutoPlay = new PIXI.Sprite(res.i18n.textures["btn_autoplay_pass"]);
+    _btnAutoPlay.buttonMode = true;
+    _btnAutoPlay.x = 156;
+    _btnAutoPlay.y = 1;
+    _btnAutoPlay.anchor.set(0.5);
+    _btnGroup.addChild(_btnAutoPlay);
 
-    _btnPaytable = game.add.button(
-      579,
-      32,
-      "i18n",
-      function() {},
-      this,
-      "btn_paytable_pass",
-      "btn_paytable_default",
-      "btn_paytable_push",
-      "btn_paytable_default",
-      _btnGroup
-    );
-    _btnPaytable.anchor.setTo(0.5, 0.5);
+    _btnPaytable = new PIXI.Sprite(res.i18n.textures["btn_paytable_pass"]);
+    _btnPaytable.buttonMode = true;
+    _btnPaytable.x = 579;
+    _btnPaytable.y = 32;
+    _btnPaytable.anchor.set(0.5);
+    _btnGroup.addChild(_btnPaytable);
   }
 
   function spin() {}
@@ -517,7 +431,7 @@ var controller = (function() {
       _root.visible = true;
     }
   };
-})();
+};
 
 //game config data
 var cache = {
@@ -662,6 +576,3 @@ var cache = {
     }
   ]
 };
-
-game.state.add("main", main);
-game.state.start("main");
