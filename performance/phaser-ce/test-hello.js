@@ -29,16 +29,14 @@ function main() {
         background.anchor.setTo(0.5, 0.5);
         layers.back.addChild(background);
 
-        //initialize
+        //controller
         controller.create();
         controller.setLayer(layers.menu);
+        controller.show();
 
+        //reel
         reel.create();
         reel.setLayer(layers.reel);
-
-
-        //show
-        controller.show();
         reel.show();
 
         var symbols = getSymbolsByIds([
