@@ -11,30 +11,19 @@
 > 例外1：dragonbones phaser SDK不支持mesh，不支持Phaser3，本次测试不包括相关测试用例。
 >
 > 例外2：spine sdk不支持phaser3，本次测试不包括相关测试用例。
-
-## 结论
-
-* Phaser-CE：
-  * WebGL模式在移动设备上性能极差，卡顿严重，无法在生产环境下使用。
-  * Canvas模式在移动设备上性能优良，可流畅播放动画。
-  * Phaser-CE + Dragonbones canvas下流畅，webgl卡顿(应该和dragonbones关系不大)。
-  * Phaser-CE + Spine(无mesh动画) canvas下流畅， webgl卡顿。
-  * Phaser-CE + Spine(有mesh动画) canvas和 webgl都卡顿。
-  * phaser-CE canvas模式下，multiTexture 要设置为false。否则影响帧率(20FPS左右)。
-* Phaser3 
-  * WebGL和Canvas模式在移动设备上性能很好，可流畅播放动画。
-* PIXI
-  * WebGL和Canvas模式在移动设备上性能都很好，可流畅播放动画。
-  * PIXI+ dragonbones(无mesh) canvas和webgl都很流畅。
-  * PIXI + dragonbones(有mesh) canvas下令人发指的卡顿(5~6fps)，webgl流畅。
+>
+> FPS: 帧率超过30即可接受，认为可以流畅播放。
 
 ## 建议
 
 - Phaser-CE ：
   - 移动设备上只能用canvas模式，webgl模式无法使用，非常卡顿。
   - dragonbones动画可以流畅播放(注：dragonbones phaser sdk目前不支持mesh)。
-  - spine无mesh动画在canvas下播放流畅，在webgl下播放卡顿。
-  - spine有mesh动画在canvas和webgl下都播放卡顿，无法使用。
+  - ios spine无mesh动画在canvas下播放流畅，在webgl下播放卡顿。
+  - ios  spine有mesh动画在canvas和webgl下都播放卡顿，无法使用。
+  - android 下 Spine动画有无mesh在canvas和webgl下都播放流畅。
+  - Spine动画关于颜色渐变和alpha渐变动画无法播放。
+  - canvas模式下，multiTexture 要设置为false。否则影响帧率(下降20FPS左右)。
 - Phaser3
   - 移动设备上canvas和webgl模式都非常流畅。
   - dragonbones无法使用(注：dragonbones phaser sdk目前不支持phaser3)。
@@ -44,7 +33,7 @@
   - dragonbones无mesh动画在canvas和webgl下都可以流畅播放。
   - dragonbones有mesh动画在webgl下可以流畅播放，canvas下卡顿严重。
   - spine无mesh动画在canvas和webgl下都可流畅播放。
-  - spine有mesh动画在webgl下流畅播放，canvas下卡顿。
+  - spine有mesh动画在webgl下流畅播放，canvas下卡顿，但是android上canvas模式还能接受。
 
 ## Iphone 6s
 
@@ -102,13 +91,13 @@
     | phaser-ce | 2.6.14   |  57~60  | 6~7 |
     | phaser3   | 3.0.10   | 流畅(无mask) |流畅(无mask)|
     | pixi      | 3.5.5    | 37~49 |58~60|
-    | phaser-ce + dragonbones | dragonbones 5.6.2 |  ||
-    | phaser-ce + spine | spine  4.0.0-alpha1 |  ||
-    | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 |  ||
-    | pixi + dragonbones | dragonbones 5.6.2 |  ||
-    | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  ||
-    | pixi + spine | spine  4.0.0-alpha1 |  ||
-    | pixi + spine(mesh) | spine  4.0.0-alpha1 |  ||
+    | phaser-ce + dragonbones | dragonbones 5.6.2 | 32~37 |7|
+    | phaser-ce + spine | spine  4.0.0-alpha1 | 32~36 |7|
+    | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 | 5 |7|
+    | pixi + dragonbones | dragonbones 5.6.2 | 31~44 |55~60|
+    | pixi + dragonbones(mesh) | dragonbones 5.6.2 | 4 |58~60|
+    | pixi + spine | spine  4.0.0-alpha1 | 35~45 |58~60|
+    | pixi + spine(mesh) | spine  4.0.0-alpha1 | 6 |58~60|
 
 
 ## Samsung S6 
@@ -122,11 +111,11 @@
   |:--------- | -------- | ----- |---------- |
   | phaser-ce | 2.6.14   | 59~60 | 25~32 |
   | phaser3   | 3.0.10   | 流畅(无mask) | 流畅(无mask) |
-  | pixi      | 3.5.5    |   |  |
-  | phaser-ce + dragonbones | dragonbones 5.6.2 |  |  |
-  | phaser-ce + spine | spine  4.0.0-alpha1 |  |  |
-  | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 |  |  |
-  | pixi + dragonbones | dragonbones 5.6.2 |  |  |
-  | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  |  |
-  | pixi + spine | spine  4.0.0-alpha1 |  |  |
-  | pixi + spine(mesh) | spine  4.0.0-alpha1 |  |  |
+  | pixi      | 3.5.5    | 45~60 | 58~60 |
+  | phaser-ce + dragonbones | dragonbones 5.6.2 | 58~60 | 22~26 |
+  | phaser-ce + spine | spine  4.0.0-alpha1 | 54~60 | 58~60 |
+  | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 | 39~45 | 60 |
+  | pixi + dragonbones | dragonbones 5.6.2 | 58~60 | 58~60 |
+  | pixi + dragonbones(mesh) | dragonbones 5.6.2 | 20~60 | 51~60 |
+  | pixi + spine | spine  4.0.0-alpha1 | 58~60 | 57~60 |
+  | pixi + spine(mesh) | spine  4.0.0-alpha1 | 29~60 | 57~60 |
