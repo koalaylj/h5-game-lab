@@ -39,11 +39,11 @@
       | phaser-ce + dragonbones | dragonbones 5.6.2 | 55~60 |
       | phaser-ce + spine |  |  |
       | phaser-ce + spine(mesh) |  |  |
-      | phaser3 + dragonbones | 不支持 | 龙骨目前不支持phaser3 |
+      | phaser3 + dragonbones | 不支持 |  |
       | phaser3 + spine |  |  |
       | phaser3 + spine(mesh) |  |  |
-      | pixi + dragonbones |  |  |
-      | pixi + dragonbones(mesh) |  |  |
+      | pixi + dragonbones | dragonbones 5.6.2 | 58~60 |
+      | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  |
       | pixi + spine |  |  |
       | pixi + spine(mesh) |  |  |
 
@@ -54,53 +54,53 @@
     	| phaser-ce | 2.6.14   | 58~60   |
     	| phaser3   | 3.0.10   | 流畅 |
     	| pixi      | 3.5.5    | 55~60 |
-		| phaser-ce + dragonbones | dragonbones 5.6.2 | 58~60 |
-		| phaser-ce + spine |  |  |
-		| phaser-ce + spine(mesh) |  |  |
-		| phaser3 + dragonbones |  |  |
-		| phaser3 + spine |  |  |
-		| phaser3 + spine(mesh) |  |  |
-		| pixi + dragonbones |  |  |
-		| pixi + dragonbones(mesh) |  |  |
-		| pixi + spine |  |  |
-		| pixi + spine(mesh) |  |  |
+  	| phaser-ce + dragonbones | dragonbones 5.6.2 | 58~60 |
+  	| phaser-ce + spine |  |  |
+  	| phaser-ce + spine(mesh) |  |  |
+  	| phaser3 + dragonbones | 不支持 |  |
+  	| phaser3 + spine |  |  |
+  	| phaser3 + spine(mesh) |  |  |
+  	| pixi + dragonbones | dragonbones 5.6.2 | 58~60 |
+  	| pixi + dragonbones(mesh) | dragonbones 5.6.2 |  |
+  	| pixi + spine |  |  |
+  	| pixi + spine(mesh) |  |  |
 
   * WebGL
-  	* safari
+    * safari
 
-  		| Framework | Version |   FPS   | 备注 |
-  		|:--------- | -------- | ------- |---------- |
-  		| phaser-ce | 2.6.14   | 21~23   | 去掉mask帧率在32左右 |
-  		| phaser3   | 3.0.10 | 流畅 |  |
-  		| pixi      | 3.5.5    | 58~60 |  |
-		| phaser-ce + dragonbones | dragonbones 5.6.2 | 20~22 ||
-		| phaser-ce + spine |  |  ||
-		| phaser-ce + spine(mesh) |  |  ||
-		| phaser3 + dragonbones | 不支持 |  ||
-		| phaser3 + spine |  |  ||
-		| phaser3 + spine(mesh) |  |  ||
-		| pixi + dragonbones |  |  ||
-		| pixi + dragonbones(mesh) |  |  ||
-		| pixi + spine |  |  ||
-		| pixi + spine(mesh) |  |  ||
+      | Framework | Version |   FPS   | 备注 |
+      |:--------- | -------- | ------- |---------- |
+      | phaser-ce | 2.6.14   | 21~23   | 去掉mask帧率在32左右 |
+      | phaser3   | 3.0.10 | 流畅 |  |
+      | pixi      | 3.5.5    | 58~60 |  |
+      | phaser-ce + dragonbones | dragonbones 5.6.2 | 20~22 ||
+      | phaser-ce + spine |  |  ||
+      | phaser-ce + spine(mesh) |  |  ||
+      | phaser3 + dragonbones | 不支持 |  ||
+      | phaser3 + spine |  |  ||
+      | phaser3 + spine(mesh) |  |  ||
+      | pixi + dragonbones | dragonbones 5.6.2 | 58~60 ||
+      | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  ||
+      | pixi + spine |  |  ||
+      | pixi + spine(mesh) |  |  ||
 
-  	* chrome
+    * chrome
 
-  		| Framework | Version  |   FPS   | 备注 |
-  		|:--------- | -------- | ------- |---------- |
-  		| phaser-ce | 2.6.14   | 21~23   | 去掉mask帧率在32~34左右 |
-  		| phaser3   | 3.0.10   | 流畅 |  |
-  		| pixi      | 3.5.5    | 55~60 |  |
-		| phaser-ce + dragonbones | dragonbones 5.6.2 | 21~23 ||
-		| phaser-ce + spine |  |  ||
-		| phaser-ce + spine(mesh) |  |  ||
-		| phaser3 + dragonbones |  |  ||
-		| phaser3 + spine |  |  ||
-		| phaser3 + spine(mesh) |  |  ||
-		| pixi + dragonbones |  |  ||
-		| pixi + dragonbones(mesh) |  |  ||
-		| pixi + spine |  |  ||
-		| pixi + spine(mesh) |  |  ||
+      | Framework | Version  |   FPS   | 备注 |
+      |:--------- | -------- | ------- |---------- |
+      | phaser-ce | 2.6.14   | 21~23   | 去掉mask帧率在32~34左右 |
+      | phaser3   | 3.0.10   | 流畅 |  |
+      | pixi      | 3.5.5    | 55~60 |  |
+      | phaser-ce + dragonbones | dragonbones 5.6.2 | 21~23 ||
+      | phaser-ce + spine |  |  ||
+      | phaser-ce + spine(mesh) |  |  ||
+      | phaser3 + dragonbones | 不支持 |  ||
+      | phaser3 + spine |  |  ||
+      | phaser3 + spine(mesh) |  |  ||
+      | pixi + dragonbones | dragonbones 5.6.2 | 58~60 ||
+      | pixi + dragonbones(mesh) | dragonbones 5.6.2 | 58~60 ||
+      | pixi + spine |  |  ||
+      | pixi + spine(mesh) |  |  ||
 
 ## Ipad 4 LTE
 * System
