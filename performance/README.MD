@@ -38,11 +38,10 @@
 ## Iphone 6s
 
 * System
-	* OS: IOS 11.2.6(15D100)
-	* Model: A1688
-	* Size: 4.7 inch
-	* Resolution: 750 * 1334 pixel at 326 ppi
-	* Chip: A9 64bit
+  * OS: IOS 11.2.6(15D100)
+  * Size: 4.7 inch
+  * Resolution: 750 * 1334 pixel at 326 ppi
+  * Chip: A9 64bit
 
 * 浏览器
   * Safari
