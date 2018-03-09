@@ -13,7 +13,7 @@ FPS.x = 30;
 FPS.y = 90;
 layer.menu.addChild(FPS);
 
-for (let key in layer) {
+for (var key in layer) {
   app.stage.addChild(layer[key]);
 }
 
@@ -44,13 +44,13 @@ const loader = new PIXI.loaders.Loader();
 loader
   .add("main", "../assets/main.json")
   .add("i18n", "../assets/en.json")
-  .use((res, next) => {
+  .use(function(res, next) {
     //Convert JOSN(Array) to JSON(Hash)
     if (res.name === "i18n" || res.name === "main") {
       var map = {};
       var frames = {};
 
-      res.data.frames.forEach((e, i) => {
+      res.data.frames.forEach(function(e, i) {
         map[i] = e.filename;
         frames[e.filename] = e;
       });
@@ -65,7 +65,7 @@ loader
 
     next();
   })
-  .load((loader, res) => {
+  .load(function(loader, res) {
     //controller
     var controller = new Controller(res);
     controller.create();

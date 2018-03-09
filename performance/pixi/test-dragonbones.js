@@ -14,7 +14,7 @@ FPS.x = 30;
 FPS.y = 90;
 layer.menu.addChild(FPS);
 
-for (let key in layer) {
+for (var key in layer) {
   app.stage.addChild(layer[key]);
 }
 
@@ -48,13 +48,13 @@ loader
   .add("man_atlas", "../assets/dragonbones/man_tex.json")
   .add("man_tex", "../assets/dragonbones/man_tex.png")
   .add("man_ske", "../assets/dragonbones/man_ske.json")
-  .use((res, next) => {
+  .use(function(res, next) {
     //Convert JOSN(Array) to JSON(Hash)
     if (res.name === "i18n" || res.name === "main") {
       var map = {};
       var frames = {};
 
-      res.data.frames.forEach((e, i) => {
+      res.data.frames.forEach(function(e, i) {
         map[i] = e.filename;
         frames[e.filename] = e;
       });
@@ -69,7 +69,7 @@ loader
 
     next();
   })
-  .load((loader, res) => {
+  .load(function(loader, res)  {
     //controller
     var controller = new Controller(res);
     controller.create();

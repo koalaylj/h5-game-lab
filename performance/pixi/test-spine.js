@@ -14,7 +14,7 @@ FPS.x = 30;
 FPS.y = 90;
 layer.menu.addChild(FPS);
 
-for (let key in layer) {
+for (var key in layer) {
   app.stage.addChild(layer[key]);
 }
 
@@ -46,13 +46,13 @@ loader
   .add("main", "../assets/main.json")
   .add("i18n", "../assets/en.json")
   .add("pig", "../assets/spine/pig.json")
-  .use((res, next) => {
+  .use(function(res, next) {
     //Convert JOSN(Array) to JSON(Hash)
     if (res.name === "i18n" || res.name === "main") {
       var map = {};
       var frames = {};
 
-      res.data.frames.forEach((e, i) => {
+      res.data.frames.forEach(function(e, i) {
         map[i] = e.filename;
         frames[e.filename] = e;
       });
@@ -67,7 +67,7 @@ loader
 
     next();
   })
-  .load((loader, res) => {
+  .load(function(loader, res) {
     //controller
     var controller = new Controller(res);
     controller.create();
@@ -119,13 +119,12 @@ loader
     pig.x = 700;
     pig.y = 800;
     layer.front.addChild(pig);
-    if (pig.state.hasAnimation('pig')) {
-        // run forever, little boy!
-        pig.state.setAnimation(0, 'pig', true);
-        // dont run too fast
-       // pig.state.timeScale = 0.1;
+    if (pig.state.hasAnimation("pig")) {
+      // run forever, little boy!
+      pig.state.setAnimation(0, "pig", true);
+      // dont run too fast
+      // pig.state.timeScale = 0.1;
     }
-    
 
     app.start();
   });
