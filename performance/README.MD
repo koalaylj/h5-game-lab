@@ -23,6 +23,19 @@
   * PIXI+ dragonbones(无mesh) canvas和webgl都很流畅。
   * PIXI + dragonbones(有mesh) canvas下令人发指的卡顿(5~6fps)，webgl流畅。
 
+## 建议
+
+- Phaser-CE ：
+  - 移动设备上只能用canvas模式，webgl模式无法使用，非常卡顿。
+  - dragonbones动画可以流畅播放(注：dragonbones phaser sdk目前不支持mesh)。
+- Phaser3
+  - 移动设备上canvas和webgl模式都非常流畅。
+  - dragonbones无法使用(注：dragonbones phaser sdk目前不支持phaser3)。
+- PIXI
+  - 移动设备上canvas和webgl模式都非常流畅。
+  - dragonbones无mesh动画在canvas和webgl下都可以流畅播放。
+  - dragonbones有mesh动画在webgl下可以流畅播放，canvas下卡顿严重。
+
 ## Iphone 6s
 
 * System
@@ -93,10 +106,9 @@
   | pixi + spine(mesh) |  |  ||
 
 
-## Samsung 
+## Samsung S6 
 * System
-	* OS: Android 6.0
-	* Model: S6
+  * OS: Android 6.0
 
 * 浏览器
   * chrome	
