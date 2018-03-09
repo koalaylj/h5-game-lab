@@ -1,5 +1,9 @@
-var app = new PIXI.Application(null,null,null,true);
-// var app = new PIXI.Application(true,800,800,false,false,false,1,true);
+// var app = new PIXI.Application();
+var app = new PIXI.Application({
+    width:800,
+    height:800,
+    forceCanvas:false
+});
 document.body.appendChild(app.view);
 
 var count = 0;

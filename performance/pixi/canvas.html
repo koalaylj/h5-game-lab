@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Pixi Canvas</title>
+	<style>
+		div {
+			background-color: white;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		canvas {
+			margin-left: auto;
+			margin-right: auto;
+			background-color: black;
+			outline: #000000 solid;
+		}
+	</style>
+</head>
+
+<body>
+
+</body>
+
+<script type="text/javascript" src="../lib/pixi-v4.7.0.js" charset="utf-8"></script>
+<script type="text/javascript" src="../lib/lodash.js" charset="utf-8"></script>
+<script>
+    var app = new PIXI.Application({
+        width: 1600,
+        height: 900,
+        forceCanvas: true //true:canvas , false:webgl
+    });
+	document.body.appendChild(app.view);
+	window.app = app;
+</script>
+<script type="text/javascript" src="./main.js" charset="utf-8"></script>
+
+</html>

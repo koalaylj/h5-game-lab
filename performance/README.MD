@@ -15,7 +15,7 @@
 			| framework | version  |   FPS   |
 			|:--------- | -------- | ------- |
 			| phaser-ce | 2.6.14   |  54~60  |
-			| phaser3   | 3.0.10   |      |
+			| phaser3   | 3.0.10   | 流畅 |
 			| pixi      | 3.5.5    |      |
 		
 		* chrome()
@@ -23,7 +23,7 @@
 			| framework | version  |   FPS   |
 			|:--------- | -------- | ------- |
 			| phaser-ce | 2.6.14   | 58~60   |
-			| phaser3   | 3.0.10   |       |
+			| phaser3   | 3.0.10   | 流畅 |
 			| pixi      | 3.5.5    |       |
 		
 	* WebGL
@@ -32,7 +32,7 @@
 			| framework | version  |   FPS   | 备注 |
 			|:--------- | -------- | ------- |---------- |
 			| phaser-ce | 2.6.14   | 18~23   | 去掉mask帧率在32左右 |
-			| phaser3   | 3.0.10   |      |  |
+			| phaser3   | 3.0.10 | 流畅 |  |
 			| pixi      | 3.5.5    |      |  |
 		
 		* chrome()
@@ -40,7 +40,7 @@
 			| framework | version  |   FPS   | 备注 |
 			|:--------- | -------- | ------- |---------- |
 			| phaser-ce | 2.6.14   | 21~23   | 去掉mask帧率在32~34左右 |
-			| phaser3   | 3.0.10   |      |  |
+			| phaser3   | 3.0.10   | 流畅 |  |
 			| pixi      | 3.5.5    |      |  |
 
 ## Ipad 4 LTE
@@ -54,36 +54,21 @@
 * Canvas
   * safari
 
-  	| framework | version  |   FPS   | 备注     |
-  	|:--------- | -------- | ------- | ------- |
-  	| phaser-ce | 2.6.14   |  57~60  | multiTexture:true fps 33~37 |
-  	| phaser3   | 3.0.10   |      |
-  	| pixi      | 3.5.5    |      |
-
-  * chrome()
-
-  	| framework | version  |   FPS   |
-  	|:--------- | -------- | ------- |
-  	| phaser-ce | 2.6.14   |   |
-  	| phaser3   | 3.0.10   |       |
-  	| pixi      | 3.5.5    |       |
+    | framework | version  |   FPS   | 备注     |
+    |:--------- | -------- | ------- | ------- |
+    | phaser-ce | 2.6.14   |  57~60  | multiTexture:true fps 33~37 |
+    | phaser3   | 3.0.10   | 流畅 ||
+    | pixi      | 3.5.5    |      ||
 
 * WebGL
-	* safari
+  * safari
 
-		| framework | version  |   FPS   |
-		|:--------- | -------- | ------- |
-		| phaser-ce | 2.6.14   | 6~7   |
-		| phaser3   | 3.0.10   |      |
-		| pixi      | 3.5.5    |      |
-	
-	* chrome()
+    | framework | version  |   FPS   |
+    |:--------- | -------- | ------- |
+    | phaser-ce | 2.6.14   | 6~7   |
+    | phaser3   | 3.0.10   | 流畅 |
+    | pixi      | 3.5.5    |      |
 
-		| framework | version  |   FPS   |
-		|:--------- | -------- | ------- |
-		| phaser-ce | 2.6.14   |    |
-		| phaser3   | 3.0.10   |      |
-		| pixi      | 3.5.5    |      |
 
 
 ## Samsung 
@@ -99,7 +84,7 @@
 			| framework | version  |  FPS  |
 			|:--------- | -------- | ----- |
 			| phaser-ce | 2.6.14   | 59~60 |
-			| phaser3   | 3.0.10   |   |
+			| phaser3   | 3.0.10   | 流畅 |
 			| pixi      | 3.5.5    |   |
 
 	* webgl
@@ -108,7 +93,7 @@
 			| framework | version  |  FPS  |
 			|:--------- | -------- | ----- |
 			| phaser-ce | 2.6.14   | 25~32 |
-			| phaser3   | 3.0.10   |   |
+			| phaser3   | 3.0.10   | 流畅 |
 			| pixi      | 3.5.5    |   |
 
 ## Mac
