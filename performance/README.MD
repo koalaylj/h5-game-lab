@@ -8,7 +8,9 @@
 >
 > 环境搭建：搭建http server，移动设备上访问 `performance`目录下相应页面即可，页面可看到FPS。
 >
-> 例外：dragonbones phaser SDK不支持mesh，不支持Phaser3，所以本次测试不包括相关测试用例。
+> 例外1：dragonbones phaser SDK不支持mesh，不支持Phaser3，本次测试不包括相关测试用例。
+>
+> 例外2：spine sdk不支持phaser3，本次测试不包括相关测试用例。
 
 ## 结论
 
@@ -28,9 +30,12 @@
 - Phaser-CE ：
   - 移动设备上只能用canvas模式，webgl模式无法使用，非常卡顿。
   - dragonbones动画可以流畅播放(注：dragonbones phaser sdk目前不支持mesh)。
+  - spine无mesh动画在canvas下播放流畅，在webgl下播放卡顿。
+  - spine有mesh动画在canvas和webgl下都播放卡顿，无法使用。
 - Phaser3
   - 移动设备上canvas和webgl模式都非常流畅。
   - dragonbones无法使用(注：dragonbones phaser sdk目前不支持phaser3)。
+  - spine无法使用(注：spine phaser sdk目前不支持phaser3)。
 - PIXI
   - 移动设备上canvas和webgl模式都非常流畅。
   - dragonbones无mesh动画在canvas和webgl下都可以流畅播放。
@@ -54,13 +59,13 @@
     | phaser3   | 3.0.10   | 流畅(无mask) | 流畅(无mask) |
     | pixi      | 3.5.5    | 58~60 | 58~60 |
     | phaser-ce + dragonbones | dragonbones 5.6.2 | 55~60 | 20~22 |
-    | phaser-ce + spine |  |  |  |
-    | phaser-ce + spine(mesh) |  |  |  |
-    | phaser3 + spine |  |  |  |
-    | phaser3 + spine(mesh) |  |  |  |
+    | phaser-ce + spine | spine  4.0.0-alpha1 | 60 | 20~21 |
+    | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 | 6~7 | 20~21 |
+    | phaser3 + spine | spine  4.0.0-alpha1 |  |  |
+    | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  |  |
     | pixi + dragonbones | dragonbones 5.6.2 | 58~60 | 58~60 |
     | pixi + dragonbones(mesh) | dragonbones 5.6.2 | 4~5 | 58~60 |
-    | pixi + spine |  |  |  |
+    | pixi + spine | spine  4.0.0-alpha1 |  |  |
 
   * Chrome
 
@@ -70,14 +75,14 @@
   	| phaser3   | 3.0.10   | 流畅(无mask) | 流畅(无mask) |
   	| pixi      | 3.5.5    | 55~60 | 55~60 |
   | phaser-ce + dragonbones | dragonbones 5.6.2 | 58~60 | 21~23 |
-  | phaser-ce + spine |  |  |  |
-  | phaser-ce + spine(mesh) |  |  |  |
-  | phaser3 + spine |  |  |  |
-  | phaser3 + spine(mesh) |  |  |  |
+  | phaser-ce + spine | spine  4.0.0-alpha1 | 60 | 20~21 |
+  | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 | 7 | 20~21 |
+  | phaser3 + spine | spine  4.0.0-alpha1 |  |  |
+  | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  |  |
   | pixi + dragonbones | dragonbones 5.6.2 | 58~60 | 58~60 |
   | pixi + dragonbones(mesh) | dragonbones 5.6.2 | 5 | 58~60 |
-  | pixi + spine |  |  |  |
-  | pixi + spine(mesh) |  |  |  |
+  | pixi + spine | spine  4.0.0-alpha1 |  |  |
+  | pixi + spine(mesh) | spine  4.0.0-alpha1 |  |  |
 
 ## Ipad 4 LTE
 * System
@@ -96,14 +101,14 @@
     | phaser3   | 3.0.10   | 流畅(无mask) |流畅(无mask)|
     | pixi      | 3.5.5    | 37~49 |58~60|
   | phaser-ce + dragonbones | dragonbones 5.6.2 |  ||
-  | phaser-ce + spine |  |  ||
-  | phaser-ce + spine(mesh) |  |  ||
-  | phaser3 + spine |  |  ||
-  | phaser3 + spine(mesh) |  |  ||
-  | pixi + dragonbones |  |  ||
-  | pixi + dragonbones(mesh) |  |  ||
-  | pixi + spine |  |  ||
-  | pixi + spine(mesh) |  |  ||
+  | phaser-ce + spine | spine  4.0.0-alpha1 |  ||
+  | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 |  ||
+  | phaser3 + spine | spine  4.0.0-alpha1 |  ||
+  | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  ||
+  | pixi + dragonbones | dragonbones 5.6.2 |  ||
+  | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  ||
+  | pixi + spine | spine  4.0.0-alpha1 |  ||
+  | pixi + spine(mesh) | spine  4.0.0-alpha1 |  ||
 
 
 ## Samsung S6 
@@ -119,11 +124,11 @@
   | phaser3   | 3.0.10   | 流畅(无mask) | 流畅(无mask) |
   | pixi      | 3.5.5    |   |  |
   | phaser-ce + dragonbones | dragonbones 5.6.2 |  |  |
-  | phaser-ce + spine |  |  |  |
-  | phaser-ce + spine(mesh) |  |  |  |
-  | phaser3 + spine |  |  |  |
-  | phaser3 + spine(mesh) |  |  |  |
-  | pixi + dragonbones |  |  |  |
-  | pixi + dragonbones(mesh) |  |  |  |
-  | pixi + spine |  |  |  |
-  | pixi + spine(mesh) |  |  |  |
+  | phaser-ce + spine | spine  4.0.0-alpha1 |  |  |
+  | phaser-ce + spine(mesh) | spine  4.0.0-alpha1 |  |  |
+  | phaser3 + spine | spine  4.0.0-alpha1 |  |  |
+  | phaser3 + spine(mesh) | spine  4.0.0-alpha1 |  |  |
+  | pixi + dragonbones | dragonbones 5.6.2 |  |  |
+  | pixi + dragonbones(mesh) | dragonbones 5.6.2 |  |  |
+  | pixi + spine | spine  4.0.0-alpha1 |  |  |
+  | pixi + spine(mesh) | spine  4.0.0-alpha1 |  |  |
