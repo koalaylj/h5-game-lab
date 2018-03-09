@@ -16,7 +16,7 @@
 			|:--------- | -------- | ------- |
 			| phaser-ce | 2.6.14   |  54~60  |
 			| phaser3   | 3.0.10   | 流畅 |
-			| pixi      | 3.5.5    |      |
+			| pixi      | 3.5.5    | 58~60 |
 		
 		* chrome()
 
@@ -24,7 +24,7 @@
 			|:--------- | -------- | ------- |
 			| phaser-ce | 2.6.14   | 58~60   |
 			| phaser3   | 3.0.10   | 流畅 |
-			| pixi      | 3.5.5    |       |
+			| pixi      | 3.5.5    | 55~60 |
 		
 	* WebGL
 		* safari
@@ -33,7 +33,7 @@
 			|:--------- | -------- | ------- |---------- |
 			| phaser-ce | 2.6.14   | 18~23   | 去掉mask帧率在32左右 |
 			| phaser3   | 3.0.10 | 流畅 |  |
-			| pixi      | 3.5.5    |      |  |
+			| pixi      | 3.5.5    | 58~60 |  |
 		
 		* chrome()
 
@@ -41,7 +41,7 @@
 			|:--------- | -------- | ------- |---------- |
 			| phaser-ce | 2.6.14   | 21~23   | 去掉mask帧率在32~34左右 |
 			| phaser3   | 3.0.10   | 流畅 |  |
-			| pixi      | 3.5.5    |      |  |
+			| pixi      | 3.5.5    | 55~60 |  |
 
 ## Ipad 4 LTE
 * System
@@ -58,7 +58,7 @@
     |:--------- | -------- | ------- | ------- |
     | phaser-ce | 2.6.14   |  57~60  | multiTexture:true fps 33~37 |
     | phaser3   | 3.0.10   | 流畅 ||
-    | pixi      | 3.5.5    |      ||
+    | pixi      | 3.5.5    | 37~49 ||
 
 * WebGL
   * safari
@@ -67,7 +67,7 @@
     |:--------- | -------- | ------- |
     | phaser-ce | 2.6.14   | 6~7   |
     | phaser3   | 3.0.10   | 流畅 |
-    | pixi      | 3.5.5    |      |
+    | pixi      | 3.5.5    | 58~60 |
 
 
 
@@ -95,24 +95,3 @@
 			| phaser-ce | 2.6.14   | 25~32 |
 			| phaser3   | 3.0.10   | 流畅 |
 			| pixi      | 3.5.5    |   |
-
-## Mac
-* System
-	* OS: macOS High Sierra
-	* Version: 10.13.3(17D102)
-	* Name: MacBook Pro(Retina,15-inch,Mid2015)
-	* Processor: 2.5GHz Intel Core i7
-	* Memory: 16GB 1600MHz DDR3
-	* Graphics: Intel Iris Pro 1536MB
-
-* Render
-	* canvas
-		* chrome()
-		* safari()
-		* firefox()
-		* 360()
-	* webgl
-		* chrome()
-		* safari()
-		* firefox()
-		* 360()

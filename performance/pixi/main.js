@@ -8,9 +8,16 @@ var layer = {
   menu: new PIXI.Container()
 };
 
+var FPS = new PIXI.Text("");
+FPS.x = 30;
+FPS.y = 90;
+layer.menu.addChild(FPS);
+
 for (let key in layer) {
   app.stage.addChild(layer[key]);
 }
+
+var counter = 0;
 
 var bg = PIXI.Sprite.fromImage("../assets/background.png");
 bg.anchor.set(0.5);
@@ -97,6 +104,12 @@ loader
 
     app.ticker.add(function(delta) {
       reelManager.update();
+      if (counter++ % 10 === 0) {
+        FPS.text = "FPS:" + app.ticker.FPS;
+      }
+      if (counter > 10000000000) {
+        counter = 0;
+      }
     });
 
     app.start();
@@ -137,7 +150,7 @@ var ReelManager = function(res) {
   Reel.prototype.initMask = function() {
     var mask = new PIXI.Graphics();
     app.stage.addChild(mask);
-    mask.x =  this.conf.mask.x + _reelGroup.x;
+    mask.x = this.conf.mask.x + _reelGroup.x;
     mask.y = this.conf.mask.y + _reelGroup.y;
     mask.beginFill(0x000000);
     mask.drawRect(0, 0, this.conf.mask.w, this.conf.mask.h);
