@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>hello</title>
+</head>
+
+<body onload="main()">
+  <canvas id="canvas" width="400" height="400">
+    Please use a browser that supports "canvas"
+  </canvas>
+
+  <script>
+    // Vertex shader program
+    const VSHADER_SOURCE =
+      `void main() {
+        gl_Position = vec4(0.0, 0.0, 0.0, 1.0); 
+        gl_PointSize = 10.0;
+      }`;
+
+    // Fragment shader program
+    const FSHADER_SOURCE =
+      'void main() {\n' +
+      '  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' + // Set the point color
+      '}\n';
+
+    function main() {
+      let canvas = document.getElementById('canvas');
+      let gl = canvas.getContext('webgl');
+
+      if (!gl) {
+        console.log('Failed to get the rendering context for WebGL');
+        return;
+      }
+
+      /***** initialize vertex shader. *****/
+      let v_shader = gl.createShader(gl.VERTEX_SHADER);
+      if (v_shader == null) {
+        console.error('unable to create shader');
+        return;
+      }
+
+      gl.shaderSource(v_shader, VSHADER_SOURCE);
+      gl.compileShader(v_shader);
+
+      let compiled = gl.getShaderParameter(v_shader, gl.COMPILE_STATUS);
+      if (!compiled) {
+        let error = gl.getShaderInfoLog(v_shader);
+        console.log('Failed to compile shader: ' + error);
+        gl.deleteShader(v_shader);
+        return;
+      }
+
+      /***** initialize fragment shader. *****/
+      let f_shader = gl.createShader(gl.FRAGMENT_SHADER);
+      if (f_shader == null) {
+        console.log('unable to create shader');
+        return;
+      }
+
+      gl.shaderSource(f_shader, FSHADER_SOURCE);
+      gl.compileShader(f_shader);
+
+      compiled = gl.getShaderParameter(f_shader, gl.COMPILE_STATUS);
+      if (!compiled) {
+        let error = gl.getShaderInfoLog(f_shader);
+        console.log('Failed to compile shader: ' + error);
+        gl.deleteShader(f_shader);
+        return;
+      }
+
+      /***** attach shader. *****/
+
+      let program = gl.createProgram();
+      if (!program) {
+        return;
+      }
+
+      // Attach the shader objects
+      gl.attachShader(program, v_shader);
+      gl.attachShader(program, f_shader);
+
+      // Link the program object
+      gl.linkProgram(program);
+
+      // Check the result of linking
+      let linked = gl.getProgramParameter(program, gl.LINK_STATUS);
+      if (!linked) {
+        let error = gl.getProgramInfoLog(program);
+        console.log('Failed to link program: ' + error);
+        gl.deleteProgram(program);
+        gl.deleteShader(f_shader);
+        gl.deleteShader(v_shader);
+        return;
+      }
+
+      gl.useProgram(program);
+      // gl.program = program;
+
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      // Draw a point
+      gl.drawArrays(gl.POINTS, 0, 1);
+    }
+  </script>
+</body>
+
+</html>
