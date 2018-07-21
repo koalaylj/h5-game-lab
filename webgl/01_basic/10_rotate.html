@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>hello</title>
+</head>
+
+<body onload="main()">
+  <canvas id="canvas" width="400" height="400">
+    Please use a browser that supports "canvas"
+  </canvas>
+
+  <script>
+    // Vertex shader program
+    var VSHADER_SOURCE =
+      // x' = x cosβ - y sinβ
+      // y' = x sinβ + y cosβ　Equation 3.3
+      // z' = z
+      'attribute vec4 a_Position;\n' +
+      'uniform float u_CosB, u_SinB;\n' +
+      'void main() {\n' +
+      '  gl_Position.x = a_Position.x * u_CosB - a_Position.y * u_SinB;\n' +
+      '  gl_Position.y = a_Position.x * u_SinB + a_Position.y * u_CosB;\n' +
+      '  gl_Position.z = a_Position.z;\n' +
+      '  gl_Position.w = 1.0;\n' +
+      '}\n';
+
+
+    // Fragment shader program
+    const FSHADER_SOURCE =
+      `
+      void main() { 
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); 
+      }
+      `;
+
+    var ANGLE = 90.0;
+
+    function main() {
+      let canvas = document.getElementById('canvas');
+      let gl = canvas.getContext('webgl');
+
+      /***** initialize vertex shader. *****/
+      let v_shader = gl.createShader(gl.VERTEX_SHADER);
+      gl.shaderSource(v_shader, VSHADER_SOURCE);
+      gl.compileShader(v_shader);
+
+      /***** initialize fragment shader. *****/
+      let f_shader = gl.createShader(gl.FRAGMENT_SHADER);
+      gl.shaderSource(f_shader, FSHADER_SOURCE);
+      gl.compileShader(f_shader);
+
+      /***** attach shader. *****/
+      let program = gl.createProgram();
+      gl.attachShader(program, v_shader);
+      gl.attachShader(program, f_shader);
+
+      gl.linkProgram(program);
+      gl.useProgram(program);
+
+      var vertices = new Float32Array([
+        0, 0.5, -0.5, -0.5, 0.5, -0.5
+      ]);
+      var n = 3; // The number of vertices
+
+      // Create a buffer object
+      var vertexBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+      var a_Position = gl.getAttribLocation(program, 'a_Position');
+      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(a_Position);
+
+      var radian = Math.PI * ANGLE / 180.0; // Convert to radians
+      var cosB = Math.cos(radian);
+      var sinB = Math.sin(radian);
+
+      var u_CosB = gl.getUniformLocation(program, 'u_CosB');
+      var u_SinB = gl.getUniformLocation(program, 'u_SinB');
+
+      gl.uniform1f(u_CosB, cosB);
+      gl.uniform1f(u_SinB, sinB);
+
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      // Draw a point
+      gl.drawArrays(gl.TRIANGLES, 0, n);
+    }
+  </script>
+</body>
+
+</html>
