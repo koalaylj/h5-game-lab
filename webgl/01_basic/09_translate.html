@@ -15,20 +15,26 @@
     // Vertex shader program
     var VSHADER_SOURCE =
       `
+      uniform vec4 u_Translation;
       attribute vec4 a_Position; 
       void main() {
-       gl_Position = a_Position;
-       gl_PointSize = 10.0; 
+        gl_Position = a_Position + u_Translation;
+        gl_PointSize = 10.0; 
       }
       `;
 
     // Fragment shader program
     const FSHADER_SOURCE =
       `
-      void main() {
-        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+      void main() { 
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); 
       }
       `;
+
+    var Tx = 0.5,
+      Ty = 0.5,
+      Tz = 0.0;
+
 
     function main() {
       let canvas = document.getElementById('canvas');
@@ -52,22 +58,23 @@
       gl.linkProgram(program);
       gl.useProgram(program);
 
-      var vertices = new Float32Array([-0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 　0.5, -0.5]);
-      var n = 4;
-
-      var vertexBuffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-
+      // Get the storage location of a_Position
       var a_Position = gl.getAttribLocation(program, 'a_Position');
-      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
-      gl.enableVertexAttribArray(a_Position);
+
+      // Pass vertex position to attribute variable
+      var pos = new Float32Array([0.0, 0.0, 0.0, 1.0]);
+      gl.vertexAttrib4fv(a_Position, pos);
+
+      // Pass the translation distance to the vertex shader
+      var u_Translation = gl.getUniformLocation(program, 'u_Translation');
+
+      gl.uniform4f(u_Translation, Tx, Ty, Tz, 0.0);
 
       gl.clearColor(0.0, 0.0, 0.0, 1.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
 
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
-      // gl.drawArrays(gl.TRIANGLE_FAN, 0, n);
+      // Draw a point
+      gl.drawArrays(gl.POINTS, 0, 1);
     }
   </script>
 </body>
