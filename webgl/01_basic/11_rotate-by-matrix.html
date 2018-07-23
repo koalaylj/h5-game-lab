@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>hello</title>
+</head>
+
+<body onload="main()">
+  <canvas id="canvas" width="400" height="400">
+    Please use a browser that supports "canvas"
+  </canvas>
+
+  <script>
+    // Vertex shader program
+    var VSHADER_SOURCE =
+      'attribute vec4 a_Position;\n' +
+      'uniform mat4 u_xformMatrix;\n' +
+      'void main() {\n' +
+      '  gl_Position = u_xformMatrix * a_Position;\n' +
+      '}\n';
+
+    // Fragment shader program
+    const FSHADER_SOURCE =
+      `
+      void main() { 
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); 
+      }
+      `;
+
+    var ANGLE = 90.0;
+
+    function main() {
+      let canvas = document.getElementById('canvas');
+      let gl = canvas.getContext('webgl');
+
+      /***** initialize vertex shader. *****/
+      let v_shader = gl.createShader(gl.VERTEX_SHADER);
+      gl.shaderSource(v_shader, VSHADER_SOURCE);
+      gl.compileShader(v_shader);
+
+      /***** initialize fragment shader. *****/
+      let f_shader = gl.createShader(gl.FRAGMENT_SHADER);
+      gl.shaderSource(f_shader, FSHADER_SOURCE);
+      gl.compileShader(f_shader);
+
+      /***** attach shader. *****/
+      let program = gl.createProgram();
+      gl.attachShader(program, v_shader);
+      gl.attachShader(program, f_shader);
+
+      gl.linkProgram(program);
+      gl.useProgram(program);
+
+      var vertices = new Float32Array([
+        0, 0.5, -0.5, -0.5, 0.5, -0.5
+      ]);
+      var n = 3; // The number of vertices
+
+      // Create a buffer object
+      var vertexBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+      var a_Position = gl.getAttribLocation(program, 'a_Position');
+      gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(a_Position);
+
+      var radian = Math.PI * ANGLE / 180.0; // Convert to radians
+      var cosB = Math.cos(radian);
+      var sinB = Math.sin(radian);
+
+      /**
+       * Cramer's rule row major order (克莱姆法则是行主序)
+       *  | x' |   | cosB | -sinB | 0 | 0 |   | x |
+       *  | y' | = | sinB | cosB  | 0 | 0 | x | y |
+       *  | z' |   |   0  |   0   | 1 | 0 |   | z |
+       *  | 1  |   |   0  |   0   | 0 | 1 |   | 1 |
+       */
+
+      // Note: WebGL is column major order (webgl是列主序列)
+      var xformMatrix = new Float32Array([
+        cosB, sinB, 0.0, 0.0, 
+        -sinB, cosB, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ]);
+
+      var u_xformMatrix = gl.getUniformLocation(program, 'u_xformMatrix');
+
+      gl.uniformMatrix4fv(u_xformMatrix, false, xformMatrix);
+
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      // Draw a point
+      gl.drawArrays(gl.TRIANGLES, 0, n);
+    }
+  </script>
+</body>
+
+</html>
