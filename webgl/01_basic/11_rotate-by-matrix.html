@@ -72,10 +72,10 @@
 
       /**
        * Cramer's rule row major order (克莱姆法则是行主序)
-       *  | x' |   | cosB | -sinB | 0 | 0 |   | x |
-       *  | y' | = | sinB | cosB  | 0 | 0 | x | y |
-       *  | z' |   |   0  |   0   | 1 | 0 |   | z |
-       *  | 1  |   |   0  |   0   | 0 | 1 |   | 1 |
+       *  | x' |   | cosB   -sinB   0   0 |   | x |
+       *  | y' | = | sinB   cosB    0   0 | x | y |
+       *  | z' |   |   0     0      1   0 |   | z |
+       *  | 1  |   |   0     0      0   1 |   | 1 |
        */
 
       // Note: WebGL is column major order (webgl是列主序列)
